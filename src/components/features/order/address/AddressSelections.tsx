@@ -8,19 +8,13 @@ import { fetchProvinces, fetchWards } from '@/components/api/location.api'
 import { SelectTrigger, SelectValue } from '@/components/ui/select'
 
 type AddressSelectionsProps = {
-   isEdit: boolean
    control: Control<AddressRequest, unknown, AddressRequest>
    setValue: UseFormSetValue<AddressRequest>
-   editingProvince?: string
 }
 
-const AddressSelections = ({
-   isEdit,
-   editingProvince,
-   control,
-   setValue
-}: AddressSelectionsProps) => {
-   // provinces query
+const AddressSelections = ({ control, setValue }: AddressSelectionsProps) => {
+   /* ================= PROVINCES ================= */
+
    const { data: provinces = [], isLoading: provinceLoading } = useQuery({
       queryKey: ['provinces'],
       queryFn: fetchProvinces,
@@ -28,40 +22,75 @@ const AddressSelections = ({
       gcTime: Infinity
    })
 
-   const province = useWatch({ control, name: 'province' })
+   /* ================= WATCH FORM VALUES ================= */
 
-   const provinceCode = isEdit
-      ? provinces.find((p) => p.label === editingProvince)?.value
-      : provinces.find((p) => p.label === province)?.value
+   const province = useWatch({
+      control,
+      name: 'province'
+   })
 
-   // wards query
+   /* ================= PROVINCE CODE ================= */
+
+   const provinceCode = provinces.find((p) => p.label === province)?.value
+
+   /* ================= WARDS ================= */
+
    const { data: wards = [], isLoading: wardLoading } = useQuery({
       queryKey: ['wards', provinceCode],
       queryFn: () => fetchWards(provinceCode!),
-      enabled: !!provinceCode, //  fetch if exist province code
+      enabled: !!provinceCode,
       staleTime: 1000 * 60 * 30,
       gcTime: 1000 * 60 * 30
    })
 
    return (
       <div className='grid gap-3 sm:grid-cols-2'>
-         {/* Provinces */}
+         {/* ================= PROVINCE ================= */}
          <Controller
             control={control}
             name='province'
             render={({ field }) => (
                <SelectionBox
-                  key={`province-${provinces.length}`}
                   value={provinces.find((p) => p.label === field.value)?.value || ''}
                   options={provinces}
                   header='Tỉnh/Thành phố'
                   placeholder={provinceLoading ? 'Đang tải...' : 'Chọn Tỉnh/Thành phố'}
                   onValueChange={(value) => {
-                     const match = provinces.find((p) => p.value === value)
-                     // save province as label to form
-                     field.onChange(match?.label || '')
-                     // reset ward when change province
-                     setValue('ward', '')
+                     const selectedProvince = provinces.find((p) => p.value === value)
+
+                     const newProvince = selectedProvince?.label || ''
+
+                     // reset ward only if province changes
+                     if (newProvince !== field.value) {
+                        setValue('ward', '')
+                     }
+
+                     field.onChange(newProvince)
+                  }}
+               >
+                  <SelectTrigger className='hover:border-dark-gray border-extra-gray w-full flex-1 rounded-full py-5 transition'>
+                     <SelectValue
+                        placeholder={provinceLoading ? 'Đang tải...' : 'Chọn Tỉnh/Thành phố'}
+                     />
+                  </SelectTrigger>
+               </SelectionBox>
+            )}
+         />
+
+         {/* ================= WARD ================= */}
+         <Controller
+            control={control}
+            name='ward'
+            render={({ field }) => (
+               <SelectionBox
+                  value={wards.find((w) => w.label === field.value)?.value || ''}
+                  options={wards}
+                  header='Phường/Xã'
+                  disabled={!provinceCode || wardLoading}
+                  onValueChange={(value) => {
+                     const selectedWard = wards.find((w) => w.value === value)
+
+                     field.onChange(selectedWard?.label || '')
                   }}
                >
                   <SelectTrigger className='hover:border-dark-gray border-extra-gray w-full flex-1 rounded-full py-5 transition'>
@@ -77,35 +106,6 @@ const AddressSelections = ({
                   </SelectTrigger>
                </SelectionBox>
             )}
-         />
-         {/* Ward */}
-         <Controller
-            control={control}
-            name='ward'
-            render={({ field }) => {
-               return (
-                  <SelectionBox
-                     key={`ward-${provinceCode}-${wards.length}`}
-                     value={field.value || ''}
-                     options={wards}
-                     header='Phường/Xã'
-                     disabled={!provinceCode || wardLoading}
-                     onValueChange={field.onChange}
-                  >
-                     <SelectTrigger className='hover:border-dark-gray border-extra-gray w-full flex-1 rounded-full py-5 transition'>
-                        <SelectValue
-                           placeholder={
-                              !provinceCode
-                                 ? 'Chọn tỉnh trước'
-                                 : wardLoading
-                                   ? 'Đang tải...'
-                                   : 'Chọn Phường/Xã'
-                           }
-                        />
-                     </SelectTrigger>
-                  </SelectionBox>
-               )
-            }}
          />
       </div>
    )

@@ -19,6 +19,6 @@ export const fetchWards = async (provinceCode: string): Promise<OptionType[]> =>
 
    return data.wards.map((ward) => ({
       label: ward.name,
-      value: ward.name
+      value: ward.code.toString()
    }))
 }

@@ -147,12 +147,7 @@ const AddressDialog = ({ isOpen, onClose, editId }: AddressDialogProps) => {
 
                      {/* Province + Ward */}
                      <FadeMotionItem variants={FadeUpVariants} delay={0.3}>
-                        <AddressSelections
-                           isEdit={isEditMode}
-                           editingProvince={editingAddress?.province}
-                           control={form.control}
-                           setValue={form.setValue}
-                        />
+                        <AddressSelections control={form.control} setValue={form.setValue} />
                      </FadeMotionItem>
 
                      {/* Street */}
