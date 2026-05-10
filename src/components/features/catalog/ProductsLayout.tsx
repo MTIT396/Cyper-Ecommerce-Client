@@ -1,3 +1,4 @@
+'use client'
 import Container from '@/components/Container'
 import ProductsGrid from './ProductsGrid'
 import { BreadcrumbProduct } from '@/components/shared/BreadcrumbProduct'
