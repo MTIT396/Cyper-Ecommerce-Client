@@ -34,6 +34,16 @@ export const useBuildFilterBadges = (params: URLParams, categoryId?: number): Ba
       })
    }
 
+   if (params.colors && filters) {
+      const colorValues = params.colors.split(',')
+      colorValues.forEach((color) => {
+         const colorsBadge = filters.colors.find((r) => r.value.toString() === color)
+         if (colorsBadge) {
+            badges.push({ key: 'colors', ...colorsBadge })
+         }
+      })
+   }
+
    if (params.sort && filters) {
       const sortBadge = sortOptions.find((s) => s.value === params.sort)
       if (sortBadge) {

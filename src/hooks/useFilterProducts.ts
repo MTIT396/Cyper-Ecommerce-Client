@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 export function useFilterProducts(categoryId?: number) {
    const queryString: URLParams = useQueryString()
 
-   const { query, price, rating, sort, brands, specs } = queryString
+   const { query, price, rating, sort, brands, specs, colors } = queryString
 
    const parseSpecs = useMemo(() => {
       if (!specs) return []
@@ -25,11 +25,12 @@ export function useFilterProducts(categoryId?: number) {
          ...(rating && { rating }),
          ...(sort && { sort }),
          ...(brands && { brands }),
+         ...(colors && { colors }),
          ...(parseSpecs.length > 0 && {
             specs: parseSpecs.join(',')
          })
       }),
-      [categoryId, query, price, rating, sort, brands, parseSpecs]
+      [categoryId, query, price, rating, sort, brands, parseSpecs, colors]
    )
    const { data, isLoading } = useFilterProductsQuery(payload)
    return {

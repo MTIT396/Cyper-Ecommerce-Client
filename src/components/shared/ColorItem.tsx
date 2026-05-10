@@ -27,7 +27,6 @@ export function ColorItem({
          </div>
          <div>
             <span className='line-clamp-1 text-xs'>{color.label}</span>
-            <span className='text-outline-border text-xs'>({color.count})</span>
          </div>
       </div>
    )

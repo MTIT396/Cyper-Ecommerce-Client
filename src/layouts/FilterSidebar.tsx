@@ -10,6 +10,8 @@ import { useFilterProducts } from '@/hooks/useFilterProducts'
 import { useCategories } from '@/hooks/useCategories'
 
 import { cn } from '@/lib/utils'
+import ColorFilter from '@/components/features/catalog/ColorFilter'
+import FilterSection from '@/components/features/catalog/FilterSection'
 
 interface FilterSidebarProps {
    categorySlug?: string
@@ -108,6 +110,11 @@ export default function FilterSidebar({
                               onChecked={onClose}
                            />
                         ))}
+
+                     {/* Price */}
+                     <FilterSection header='Màu sắc'>
+                        <ColorFilter options={filters.colors} />
+                     </FilterSection>
 
                      {/* Rating */}
                      <CheckboxFilter
