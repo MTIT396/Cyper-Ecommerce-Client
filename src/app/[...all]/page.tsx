@@ -1,14 +1,6 @@
-'use client'
-import FallbackExpired from '@/components/shared/FallbackExpired'
-import Footer from '@/layouts/Footer'
-import Header from '@/layouts/Header'
+import NotFound from '@/components/features/notfound/NotFound'
+export const dynamic = 'force-dynamic'
 
-export default function page() {
-   return (
-      <>
-         <Header />
-         <FallbackExpired />
-         <Footer />
-      </>
-   )
+export default function Page() {
+   return <NotFound />
 }
