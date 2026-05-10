@@ -1,3 +1,5 @@
+'use client'
+
 import { FilterRequest, URLParams } from '@/types/filter.type'
 import { useFilterProductsQuery } from './useProductsQuery'
 import { useQueryString } from './useQueryString'
