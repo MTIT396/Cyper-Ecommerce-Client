@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import Providers from '@/providers/QueryProvider'
-import GoogleAuthHandler from '@/providers/AuthToastHandler'
+import AuthToastHandler from '@/providers/AuthToastHandler'
 import '@/styles/globals.css'
+import { Suspense } from 'react'
 
 const poppins = Poppins({
    subsets: ['latin'],
@@ -30,7 +31,9 @@ export default function RootLayout({
       <html lang='en'>
          <body className={` ${poppins.variable} ${inter.variable} antialiased`}>
             <Providers>
-               <GoogleAuthHandler />
+               <Suspense fallback={null}>
+                  <AuthToastHandler />
+               </Suspense>
                {children}
             </Providers>
          </body>

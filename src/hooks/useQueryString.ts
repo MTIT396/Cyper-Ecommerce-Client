@@ -1,10 +1,10 @@
+'use client'
+
+import { useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-export const useQueryString = () => {
+export const useQueryString = <T extends Record<string, string>>() => {
    const searchParams = useSearchParams()
 
-   // convert searchParams to object
-   const searchParamsObject = Object.fromEntries(searchParams.entries())
-
-   return searchParamsObject
+   return useMemo(() => Object.fromEntries(searchParams.entries()) as T, [searchParams])
 }

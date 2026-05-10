@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 export default function AuthToastHandler() {
@@ -13,16 +13,19 @@ export default function AuthToastHandler() {
 
       if (!login) return
 
-      if (login === 'success') {
-         toast.success('Đăng nhập thành công! ')
+      const messages: Record<string, string> = {
+         success: 'Đăng nhập thành công!',
+         register: 'Đăng ký thành công! Vui lòng đăng nhập'
       }
 
-      if (login === 'register') {
-         toast.success('Đăng ký thành công! Vui lòng đăng nhập')
+      const message = messages[login]
+
+      if (message) {
+         toast.success(message)
       }
 
       router.replace('/')
-   }, [searchParams, router])
+   }, [router, searchParams])
 
    return null
 }
