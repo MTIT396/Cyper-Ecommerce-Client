@@ -1,4 +1,4 @@
-import SalePage from '@/app/(main)/sale/page'
+import SalePage from '@/components/features/sale/SalePage'
 
 const Page = () => {
    return <SalePage />
