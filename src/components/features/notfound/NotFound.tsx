@@ -1,16 +1,23 @@
 'use client'
-import FallbackExpired from '@/components/shared/FallbackExpired'
-import Footer from '@/layouts/Footer'
-import Header from '@/layouts/Header'
-import { Suspense } from 'react'
+
+import dynamic from 'next/dynamic'
+
+const Header = dynamic(() => import('@/layouts/Header'), {
+   ssr: false
+})
+
+const Footer = dynamic(() => import('@/layouts/Footer'), {
+   ssr: false
+})
+
+const FallbackExpired = dynamic(() => import('@/components/shared/FallbackExpired'), {
+   ssr: false
+})
 
 export default function NotFound() {
    return (
       <>
-         <Suspense fallback={null}>
-            <Header />
-         </Suspense>
-
+         <Header />
          <FallbackExpired />
          <Footer />
       </>
