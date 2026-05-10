@@ -4,10 +4,10 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { useQueryString } from '@/hooks/useQueryString'
 import { useUpdateURL } from '@/hooks/useUpdateURL'
-import { OptionType, PriceOptionType, URLParams } from '@/types/filter.type'
+import { OptionType, URLParams } from '@/types/filter.type'
 import { CheckedState } from '@radix-ui/react-checkbox'
 
-export default function PriceFilterMain({ options }: { options: PriceOptionType[] }) {
+export default function PriceFilterMain({ options }: { options: OptionType[] }) {
    const { price }: URLParams = useQueryString()
    const { updateURL } = useUpdateURL()
 
