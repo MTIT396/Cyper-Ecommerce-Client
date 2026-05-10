@@ -1,3 +1,4 @@
+'use client'
 import Address from '@/components/features/order/address/Address'
 
 const AddressPage = () => {
