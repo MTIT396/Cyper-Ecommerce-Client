@@ -1,7 +1,7 @@
 export const googleService = {
    getGoogleAuthUrl: () => {
       const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
-      const redirectUri = 'http://localhost:3001/api/auth/google/callback'
+      const redirectUri = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/google/callback`
 
       const params = new URLSearchParams({
          client_id: clientId,
