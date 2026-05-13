@@ -85,7 +85,7 @@ const SearchbarPopover = ({ className }: SearchbarPopoverProps) => {
                   value={searchTerm}
                   onFocus={() => setIsOpen(true)}
                   placeholder='Tìm kiếm...'
-                  className='bg-extra-gray/10 h-12 w-[433px] font-mono'
+                  className='bg-extra-gray/10 h-12 w-full font-mono'
                   onChange={handleChange}
                   onSearch={handleSearch}
                   showClearButton
@@ -96,7 +96,7 @@ const SearchbarPopover = ({ className }: SearchbarPopoverProps) => {
 
          <PopoverContent
             ref={popoverRef}
-            className='w-[433px] p-0 duration-300'
+            className='w-[300px] p-0 duration-300 sm:w-[433px]'
             align='start'
             sideOffset={6}
             onOpenAutoFocus={(e) => e.preventDefault()}

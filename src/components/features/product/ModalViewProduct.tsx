@@ -6,6 +6,7 @@ import type { Swiper as SwiperType } from 'swiper'
 import { Position } from '@/types/slider.type'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import Image from 'next/image'
+import Button from '@/components/shared/Button'
 
 type ModalViewProduct = {
    isOpen: boolean
@@ -89,7 +90,7 @@ const ModalViewProduct = ({
             <>
                {/* Overlay */}
                <motion.div
-                  className='fixed inset-0 z-40 bg-black/90'
+                  className='fixed inset-0 z-60 bg-black/90'
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -101,7 +102,7 @@ const ModalViewProduct = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ type: 'tween', duration: 0.25 }}
-                  className='fixed inset-0 z-50 flex flex-col items-center justify-center'
+                  className='fixed inset-0 z-70 flex flex-col items-center justify-center'
                >
                   <Swiper
                      modules={[Navigation, Pagination]}
@@ -149,7 +150,7 @@ const ModalViewProduct = ({
 
                   {/* Controls */}
                   <div className='absolute top-5 right-6 flex items-center gap-3'>
-                     <button
+                     <Button
                         onClick={() =>
                            setZoom((z) => {
                               const newZoom = Math.max(1, z - 0.2)
@@ -160,13 +161,13 @@ const ModalViewProduct = ({
                               return newZoom
                            })
                         }
-                        className='rounded-full bg-white/20 p-3 transition hover:bg-white/40'
+                        className='size-fit rounded-full bg-white/20 p-4 transition hover:bg-white/40'
                         aria-label='Zoom out'
                      >
-                        <BsZoomOut className='text-white' />
-                     </button>
+                        <BsZoomOut className='size-4 text-white' />
+                     </Button>
 
-                     <button
+                     <Button
                         onClick={() =>
                            setZoom((z) => {
                               const newZoom = Math.min(4, z + 0.2)
@@ -176,22 +177,22 @@ const ModalViewProduct = ({
                               return newZoom
                            })
                         }
-                        className='rounded-full bg-white/20 p-3 transition hover:bg-white/40'
+                        className='size-fit rounded-full bg-white/20 p-4 transition hover:bg-white/40'
                         aria-label='Zoom in'
                      >
-                        <BsZoomIn className='text-white' />
-                     </button>
+                        <BsZoomIn className='size-4 text-white' />
+                     </Button>
 
-                     <button
+                     <Button
                         onClick={() => {
                            onOpen(false)
                            resetTransform()
                         }}
-                        className='rounded-full bg-white/20 p-3 transition hover:bg-white/40'
+                        className='size-fit rounded-full bg-white/20 p-4 transition hover:bg-white/40'
                         aria-label='Close'
                      >
-                        <BsX className='text-xl text-white' />
-                     </button>
+                        <BsX className='size-4 text-white' />
+                     </Button>
                   </div>
                </motion.div>
             </>

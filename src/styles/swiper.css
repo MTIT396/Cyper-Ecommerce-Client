@@ -32,11 +32,9 @@
 /* position */
 .swiper-button-next {
    right: 6px !important;
-   top: 90% !important;
 }
 .swiper-button-prev {
-   left: 80% !important;
-   top: 90% !important;
+   left: 6px !important;
 }
 .movies-swiper .swiper-slide:first-child {
    margin-left: 28px;

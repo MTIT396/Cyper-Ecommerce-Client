@@ -35,7 +35,10 @@ export default function PasswordFormField<TFieldValues extends FieldValues>({
                   <FormInput
                      {...field}
                      {...inputProps}
-                     className={cn(className, 'focus-within:ring-primary focus-within:ring-1')}
+                     className={cn(
+                        className,
+                        'focus-within:ring-primary hover:border-primary focus-within:ring-1 hover:border'
+                     )}
                      type={show ? 'text' : 'password'}
                      leftAddon={leftAddon}
                      rightAddon={

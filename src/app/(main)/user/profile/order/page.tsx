@@ -11,7 +11,7 @@ import { useOrders } from '@/hooks/useOrderQuery'
 
 import Link from 'next/link'
 import { FadeMotionItem } from '@/components/shared/FadeMotionItem'
-import { FadeUpVariants, LeftInVariants } from '@/lib/variants'
+import { FadeUpVariants } from '@/lib/variants'
 import { FadeMotionWrapper } from '@/components/shared/FadeMotionWrapper'
 
 export default function OrderPage() {
@@ -25,7 +25,7 @@ export default function OrderPage() {
    const orderList = orders?.data || []
 
    return (
-      <FadeMotionWrapper customVariants={LeftInVariants}>
+      <FadeMotionWrapper customVariants={FadeUpVariants}>
          <FadeMotionItem
             variants={FadeUpVariants}
             className='rounded-3xl bg-white p-4 shadow-sm sm:p-8'

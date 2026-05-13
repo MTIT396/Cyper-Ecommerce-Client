@@ -97,7 +97,7 @@ export default function FilterSidebar({
                      />
 
                      {/* Specs */}
-                     {filters.specs?.length > 0 &&
+                     {filters.specs.length > 0 &&
                         filters.specs.map((spec) => (
                            <CheckboxFilter
                               key={spec.slug}
@@ -112,9 +112,11 @@ export default function FilterSidebar({
                         ))}
 
                      {/* Price */}
-                     <FilterSection header='Màu sắc'>
-                        <ColorFilter options={filters.colors} />
-                     </FilterSection>
+                     {filters.colors.length > 0 && (
+                        <FilterSection header='Màu sắc'>
+                           <ColorFilter options={filters.colors} />
+                        </FilterSection>
+                     )}
 
                      {/* Rating */}
                      <CheckboxFilter

@@ -34,7 +34,8 @@ export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve
 
 const vnCurrencyFormatter = new Intl.NumberFormat('vi-VN', {
    style: 'currency',
-   currency: 'VND'
+   currency: 'VND',
+   maximumFractionDigits: 0
 })
 
 export const formatVNCurrency = (amount?: number | null, fallback = '0 ₫'): string => {

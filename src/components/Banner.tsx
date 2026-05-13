@@ -20,7 +20,7 @@ const Banner = () => {
                   </p>
                   <Link href='/search?query=iphone'>
                      <Button
-                        variant='secondary'
+                        variant='outline'
                         className='hover:text-dark-gray w-[14rem] rounded-md bg-transparent text-white'
                      >
                         Mua ngay
@@ -37,7 +37,7 @@ const Banner = () => {
             </div>
          </Container>
          {/* sub banner */}
-         <div className='container mx-auto grid grid-cols-1 gap-0 xl:grid-cols-2'>
+         <div className='grid grid-cols-1 gap-0 xl:grid-cols-2'>
             {/* LEFT */}
             <div className='grid'>
                {/* Playstation */}

@@ -37,7 +37,7 @@ export function AddressManagement({ headerless = false }: AddressManagementProps
          <div className='space-y-4'>
             {isLoading ? (
                <div className='flex items-center justify-center py-8'>
-                  <p className='text-gray-500'>Loading addresses...</p>
+                  <p className='text-gray-500'>Đang tải...</p>
                </div>
             ) : addresses.length > 0 ? (
                addresses.map((address) => (
@@ -71,7 +71,7 @@ export function AddressManagement({ headerless = false }: AddressManagementProps
             <Button
                onClick={handleOpenDialog}
                variant='icon'
-               className='w-fit py-2.5 font-semibold text-red-600 hover:text-red-500'
+               className='size-fit border-none p-2.5 font-semibold text-red-600 shadow-none hover:text-red-500'
             >
                <Plus className='size-4' />
                Thêm địa chỉ

@@ -193,7 +193,7 @@ const ProductDetails = ({ slug }: { slug: string }) => {
          <Container>
             <BodyContent>
                <BreadcrumbProduct items={breadcrumb} />
-               <section className='mt-2 grid grid-cols-1 gap-10 py-8 sm:grid-cols-2'>
+               <section className='mt-2 grid grid-cols-1 gap-10 py-8 lg:grid-cols-2'>
                   {/* Left Column */}
                   <div className='flex w-full flex-col gap-y-6'>
                      <ProductsImageSlider
@@ -321,15 +321,13 @@ const ProductDetails = ({ slug }: { slug: string }) => {
                      {!!resolvedVariant?.specs?.length && (
                         <div className='py-2'>
                            <h2 className='mb-4 font-semibold'>Thông số nổi bật</h2>
-                           <div className='grid grid-cols-3 gap-4'>
+                           <div className='grid grid-cols-2 gap-4 sm:grid-cols-3'>
                               {resolvedVariant.specs.map((s, i: number) => (
                                  <div
                                     key={i}
                                     className='bg-bg-gray flex w-full flex-col rounded-lg px-4.5 py-2.5'
                                  >
-                                    <p className='text-extra-gray text-sm leading-7 text-nowrap'>
-                                       {s.name}
-                                    </p>
+                                    <p className='text-extra-gray text-sm leading-7'>{s.name}</p>
                                     <div className='flex items-center gap-1.5'>
                                        <SpecificsIcon src={s.name} />
                                        <p className='font-semibold'>{s.value}</p>
@@ -347,7 +345,7 @@ const ProductDetails = ({ slug }: { slug: string }) => {
                      <div className='grid grid-cols-2 gap-4'>
                         <Button
                            onClick={() => toggleWishlist(product.id)}
-                           variant='secondary'
+                           variant='outline'
                            className='h-fit rounded-full py-2.5 text-sm'
                         >
                            <Heart /> Yêu thích

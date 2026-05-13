@@ -8,6 +8,7 @@ import { ChevronRight, Sparkles } from 'lucide-react'
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 
 import { NAVIGATIONS } from '@/constants/constants'
+import SearchbarPopover from '@/components/shared/SearchbarPopover'
 
 interface SidebarSheetProps {
    children: React.ReactNode
@@ -32,6 +33,10 @@ const SidebarSheet = ({ children, open, onOpenChange }: SidebarSheetProps) => {
                </Link>
             </SheetHeader>
 
+            <div className='px-4'>
+               <SearchbarPopover className='relative w-full' />
+            </div>
+
             {/* Navigation */}
             <nav className='flex flex-1 flex-col gap-2 p-4'>
                {NAVIGATIONS.map((nav) => (
@@ -39,19 +44,19 @@ const SidebarSheet = ({ children, open, onOpenChange }: SidebarSheetProps) => {
                      key={nav.id}
                      href={nav.link}
                      onClick={() => onOpenChange(false)}
-                     className='group flex items-center justify-between rounded-2xl border border-transparent px-4 py-4 transition-all duration-200 hover:border-red-100 hover:bg-red-50/80 hover:shadow-sm'
+                     className='group flex items-center justify-between rounded-2xl border border-transparent p-4 transition-all duration-200 hover:border-zinc-100 hover:bg-zinc-50/80 hover:shadow-sm'
                   >
                      <div className='flex items-center gap-3'>
-                        <div className='flex size-9 items-center justify-center rounded-xl bg-zinc-100 transition-colors group-hover:bg-red-100'>
-                           <Sparkles className='size-4 text-zinc-600 group-hover:text-red-500' />
+                        <div className='flex size-9 items-center justify-center rounded-xl bg-zinc-100 transition-colors'>
+                           <Sparkles className='size-4 text-zinc-600' />
                         </div>
 
-                        <span className='text-[15px] font-medium text-zinc-700 transition-colors group-hover:text-red-500'>
+                        <span className='group-hover:text-primary text-[15px] font-medium text-zinc-700 transition-colors'>
                            {nav.label}
                         </span>
                      </div>
 
-                     <ChevronRight className='size-4 text-zinc-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-red-500' />
+                     <ChevronRight className='group-hover:text-primary size-4 text-zinc-400 transition-all duration-200 group-hover:translate-x-1' />
                   </Link>
                ))}
             </nav>

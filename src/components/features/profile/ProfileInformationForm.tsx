@@ -85,11 +85,11 @@ export function ProfileInformationForm({
       const hasUsernameChange = values.username !== (defaultValues.username || '')
       const hasAvatarChange = selectedFile !== null
 
-      onOpenChange(false)
       if (!hasUsernameChange && !hasAvatarChange) {
          toast.success('Không có thay đổi nào để lưu', {
             icon: <Info />
          })
+         onOpenChange(false)
          return
       }
 
@@ -107,6 +107,7 @@ export function ProfileInformationForm({
          if (fileInputRef.current) {
             fileInputRef.current.value = ''
          }
+         onOpenChange(false)
       } catch (error: unknown) {
          const errorMessage = error instanceof Error ? error.message : 'Không thể cập nhật hồ sơ'
          toast.error(errorMessage)
@@ -144,7 +145,7 @@ export function ProfileInformationForm({
 
                   <div className='flex flex-col items-center space-y-4'>
                      {/* Avatar Display */}
-                     <div className='ring-secondary relative mb-10 size-32 overflow-hidden rounded-full ring-3 ring-offset-2'>
+                     <div className='ring-accent relative mb-10 size-32 overflow-hidden rounded-full ring-3 ring-offset-2'>
                         {displayImage ? (
                            <Image
                               src={displayImage}
@@ -161,7 +162,7 @@ export function ProfileInformationForm({
                         )}
                      </div>
 
-                     <div className='flex gap-2'>
+                     <div className='flex gap-4'>
                         <Button
                            type='button'
                            onClick={() => fileInputRef.current?.click()}
@@ -179,7 +180,7 @@ export function ProfileInformationForm({
                               onClick={handleClearPreview}
                               disabled={isLoading}
                               variant='outline'
-                              className='py-2 text-sm'
+                              className='rounded-full border-0 py-2 text-sm text-red-500 shadow-none'
                            >
                               <X className='size-4' />
                               Hủy
@@ -188,8 +189,8 @@ export function ProfileInformationForm({
                      </div>
                      {/* Upload Info */}
                      <div className='text-center'>
-                        <p className='text-sm text-gray-600'>Ảnh đại diện</p>
-                        <p className='text-xs text-gray-500'>JPG, PNG, GIF (Max 5MB)</p>
+                        <p className='text-dark-gray text-sm'>Ảnh đại diện</p>
+                        <p className='text-extra-gray text-xs leading-7'>JPG, PNG, GIF (Max 5MB)</p>
                      </div>
                   </div>
 
@@ -202,14 +203,6 @@ export function ProfileInformationForm({
                      disabled={isLoading}
                      className='hidden'
                   />
-
-                  {preview && (
-                     <div className='rounded-lg bg-blue-50 p-3 text-center'>
-                        <p className='text-sm text-blue-700'>
-                           Ảnh mới đã được chọn. Nhấp vào `Lưu thay đổi` để áp dụng.
-                        </p>
-                     </div>
-                  )}
                </div>
             </FadeMotionItem>
 

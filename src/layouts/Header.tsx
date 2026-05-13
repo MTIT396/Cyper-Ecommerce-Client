@@ -29,7 +29,7 @@ const Header = () => {
       logout()
    }
    return (
-      <header className='fixed inset-0 z-30 h-18 bg-white shadow-xl'>
+      <header className='fixed inset-0 z-50 h-18 bg-white shadow-xl'>
          <Container className='flex h-full cursor-pointer items-center justify-between'>
             <div className='flex items-center gap-4'>
                <SidebarSheet open={openSidebar} onOpenChange={setOpenSidebar}>

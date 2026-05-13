@@ -64,7 +64,7 @@ export default function Pagination({ totalPages, isLoading = false }: Pagination
             onClick={() => changePage(page - 1)}
             disabled={page === 1 || isLoading}
             className={clsx(
-               'flex items-center justify-center rounded-lg border px-3 py-2 transition',
+               'size-fit rounded-lg p-2',
                'hover:bg-gray-100',
                (page === 1 || isLoading) && 'cursor-not-allowed opacity-50'
             )}
@@ -79,19 +79,20 @@ export default function Pagination({ totalPages, isLoading = false }: Pagination
                   ...
                </span>
             ) : (
-               <button
+               <Button
                   key={p}
+                  variant='icon'
                   onClick={() => changePage(p)}
                   disabled={isLoading}
                   className={clsx(
-                     'min-w-[36px] rounded-lg border px-3 py-2 text-sm font-medium transition',
+                     'h-fit min-w-[36px] rounded-lg p-2',
                      p === page
-                        ? 'border-dark-gray bg-primary text-white shadow-sm'
+                        ? 'bg-primary hover:bg-primary text-white shadow-sm hover:text-white'
                         : 'hover:bg-gray-100'
                   )}
                >
                   {p}
-               </button>
+               </Button>
             )
          )}
 
@@ -101,7 +102,7 @@ export default function Pagination({ totalPages, isLoading = false }: Pagination
             onClick={() => changePage(page + 1)}
             disabled={page === totalPages || isLoading}
             className={clsx(
-               'flex items-center justify-center rounded-lg border px-3 py-2 transition',
+               'size-fit rounded-lg p-2',
                'hover:bg-gray-100',
                (page === totalPages || isLoading) && 'cursor-not-allowed opacity-50'
             )}

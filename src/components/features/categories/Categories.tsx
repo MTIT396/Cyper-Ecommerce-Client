@@ -10,9 +10,9 @@ const Categories = () => {
             <div className='mb-10 flex w-full items-center justify-between'>
                <h1 className='text-2xl font-semibold'>Khám phá Danh mục</h1>
             </div>
-            <div className='grid grid-cols-6 gap-8'>
+            <div className='grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6'>
                {CategoriesList.map((cat) => (
-                  <CategoryItem key={cat.id} icon={cat.icon} label={cat.name} />
+                  <CategoryItem key={cat.id} item={cat} />
                ))}
             </div>
          </Container>

@@ -16,6 +16,8 @@ import { z } from 'zod'
 import { FadeMotionWrapper } from '@/components/shared/FadeMotionWrapper'
 import { FadeMotionItem } from '@/components/shared/FadeMotionItem'
 import { FadeUpVariants } from '@/lib/variants'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 const loginSchema = z.object({
    email: z.string().email('Invalid Email'),
    password: z.string().min(6, 'Password must be at least 6 characters')
@@ -37,110 +39,129 @@ export default function LoginForm() {
    }
 
    return (
-      <div className='flex w-full items-center justify-center p-4'>
-         <div className='bg-light-gray relative h-[90vh] w-full max-w-xl overflow-hidden rounded-2xl border border-gray-300 shadow-xl'>
-            <FadeMotionWrapper className='flex h-full flex-col items-center shadow-2xl'>
-               <div className='flex w-full items-center justify-center p-10'>
-                  <div className='w-full max-w-md'>
-                     {/* HEADING TEXT */}
-                     <FadeMotionItem variants={FadeUpVariants} className='mb-8 text-center'>
-                        <Image
-                           width={120}
-                           height={120}
-                           src='/Logo.png'
-                           alt='Logo'
-                           className='mx-auto object-contain'
-                        />
-                        <h2 className='text-dark-gray mt-6 mb-1 text-2xl font-bold'>
-                           Chào mừng đến với Cyper!
-                        </h2>
-                        <p className='text-extra-gray'>
-                           Đăng nhập vào tài khoản Cyber ​​Store của bạn
-                        </p>
-                     </FadeMotionItem>
-
-                     {/* FORM */}
-                     <FadeMotionWrapper mode='normal'>
-                        <FormWrapper form={form} onSubmit={handleSubmit} className='mt-4 space-y-4'>
-                           {/* Email field */}
-                           <FadeMotionItem variants={FadeUpVariants} delay={0.1}>
-                              <TextFormField
-                                 name='email'
-                                 type='email'
-                                 label='Email'
-                                 placeholder='Nhập email của bạn'
-                                 required
-                                 className='rounded-full py-1.5'
-                                 leftAddon={<User />}
-                              />
-                           </FadeMotionItem>
-
-                           {/* Password field */}
-                           <FadeMotionItem variants={FadeUpVariants} delay={0.2}>
-                              <PasswordFormField
-                                 name='password'
-                                 label='Mật khẩu'
-                                 placeholder='Nhập mật khẩu của bạn'
-                                 className='rounded-full py-1.5'
-                                 required
-                                 leftAddon={<Lock />}
-                              />
-                           </FadeMotionItem>
-
-                           {/* Login button */}
-                           <FadeMotionItem variants={FadeUpVariants} delay={0.3}>
-                              <Button
-                                 disabled={isLoggingIn}
-                                 isLoading={isLoggingIn}
-                                 loadingText='Đang đăng nhập...'
-                                 className='w-full rounded-full py-2.5 text-[15px]'
-                              >
-                                 <LogIn size={16} />
-                                 Đăng nhập
-                              </Button>
-                           </FadeMotionItem>
-
-                           {/* Divider */}
-                           <div className='relative'>
-                              <div className='absolute inset-0 flex items-center'>
-                                 <div className='w-full border-t border-gray-300'></div>
-                              </div>
-                              <div className='relative flex items-center justify-center text-sm'>
-                                 <span className='bg-light-gray text-extra-gray px-2'>
-                                    hoặc tiếp tục với
-                                 </span>
-                              </div>
-                           </div>
-
-                           {/* Google login button */}
-                           <FadeMotionItem variants={FadeUpVariants} delay={0.4}>
-                              <Button
-                                 onClick={handleGoogleLogin}
-                                 disabled={isGoogleLoggingIn}
-                                 isLoading={isGoogleLoggingIn}
-                                 loadingText='Đang đăng nhập...'
-                                 className='bg-light-gray/50 hover:bg-light-gray text-dark-gray w-full rounded-full border border-gray-300 py-2.5 text-[15px]'
-                              >
-                                 <Image src='/google.svg' alt='Google' width={20} height={20} />
-                                 Tiếp tục với Google
-                              </Button>
-                           </FadeMotionItem>
-                        </FormWrapper>
-                     </FadeMotionWrapper>
-
-                     <FadeMotionItem
-                        variants={FadeUpVariants}
-                        className='mt-6 flex items-center justify-center gap-1'
-                     >
-                        <span className='text-extra-gray text-sm'>Chưa có tài khoản?</span>
-                        <Link href='/auth/register' className='text-sm font-semibold underline'>
-                           Tạo tài khoản ngay
-                        </Link>
-                     </FadeMotionItem>
-                  </div>
+      <div className='flex h-full items-center justify-center p-5 sm:p-8 lg:p-10'>
+         <FadeMotionWrapper className='w-full max-w-md'>
+            {/* HEADING */}
+            <FadeMotionItem variants={FadeUpVariants} className='mb-6 text-center'>
+               <div className='mb-4 flex justify-center lg:hidden'>
+                  <Image
+                     width={80}
+                     height={80}
+                     src='/Logo.png'
+                     alt='Logo'
+                     className='object-contain'
+                  />
                </div>
+
+               <h2 className='text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl'>
+                  Chào mừng trở lại
+               </h2>
+
+               <p className='mt-2 text-sm text-zinc-500'>Đăng nhập để tiếp tục mua sắm</p>
+            </FadeMotionItem>
+
+            {/* FORM */}
+            <FadeMotionWrapper mode='normal'>
+               <FormWrapper form={form} onSubmit={handleSubmit} className='space-y-4'>
+                  {/* EMAIL */}
+                  <FadeMotionItem variants={FadeUpVariants} delay={0.1}>
+                     <TextFormField
+                        name='email'
+                        type='email'
+                        label='Email'
+                        placeholder='Nhập email của bạn'
+                        required
+                        className='h-11 rounded-2xl border-zinc-200 bg-zinc-50 px-4 text-sm transition-all focus:border-black focus:bg-white'
+                        leftAddon={<User size={18} />}
+                     />
+                  </FadeMotionItem>
+
+                  {/* PASSWORD */}
+                  <FadeMotionItem variants={FadeUpVariants} delay={0.2}>
+                     <PasswordFormField
+                        name='password'
+                        label='Mật khẩu'
+                        placeholder='Nhập mật khẩu của bạn'
+                        className='h-11 rounded-2xl border-zinc-200 bg-zinc-50 px-4 text-sm transition-all focus:border-black focus:bg-white'
+                        required
+                        leftAddon={<Lock size={18} />}
+                     />
+                  </FadeMotionItem>
+
+                  {/* OPTIONS */}
+                  <FadeMotionItem
+                     variants={FadeUpVariants}
+                     delay={0.25}
+                     className='flex items-center justify-between'
+                  >
+                     <Label
+                        htmlFor='remember-login'
+                        className='text-dark-gray flex cursor-pointer items-center gap-2 font-normal'
+                     >
+                        <Checkbox id='remember-login' />
+                        Ghi nhớ đăng nhập
+                     </Label>
+
+                     <Link
+                        href='/forgot-password'
+                        className='text-xs font-medium text-black hover:underline sm:text-sm'
+                     >
+                        Quên mật khẩu?
+                     </Link>
+                  </FadeMotionItem>
+
+                  {/* LOGIN BUTTON */}
+                  <FadeMotionItem variants={FadeUpVariants} delay={0.3}>
+                     <Button
+                        disabled={isLoggingIn}
+                        isLoading={isLoggingIn}
+                        loadingText='Đang đăng nhập...'
+                        className='h-11 w-full rounded-2xl bg-black text-sm font-semibold text-white shadow-lg transition-all hover:bg-zinc-900'
+                     >
+                        <LogIn size={17} />
+                        Đăng nhập
+                     </Button>
+                  </FadeMotionItem>
+
+                  {/* DIVIDER */}
+                  <div className='relative py-1'>
+                     <div className='absolute inset-0 flex items-center'>
+                        <div className='w-full border-t border-zinc-200'></div>
+                     </div>
+
+                     <div className='relative flex justify-center text-xs sm:text-sm'>
+                        <span className='bg-white px-3 text-zinc-400'>hoặc tiếp tục với</span>
+                     </div>
+                  </div>
+
+                  {/* GOOGLE */}
+                  <FadeMotionItem variants={FadeUpVariants} delay={0.4}>
+                     <Button
+                        onClick={handleGoogleLogin}
+                        disabled={isGoogleLoggingIn}
+                        isLoading={isGoogleLoggingIn}
+                        loadingText='Đang đăng nhập...'
+                        className='h-11 w-full rounded-2xl border border-zinc-200 bg-white text-sm font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50'
+                     >
+                        <Image src='/google.svg' alt='Google' width={18} height={18} />
+                        Tiếp tục với Google
+                     </Button>
+                  </FadeMotionItem>
+               </FormWrapper>
             </FadeMotionWrapper>
-         </div>
+
+            {/* FOOTER */}
+            <FadeMotionItem variants={FadeUpVariants} className='mt-6 text-center'>
+               <span className='text-xs text-zinc-500 sm:text-sm'>Chưa có tài khoản?</span>
+
+               <Link
+                  href='/auth/register'
+                  className='ml-1 text-xs font-semibold text-black hover:underline sm:text-sm'
+               >
+                  Tạo tài khoản ngay
+               </Link>
+            </FadeMotionItem>
+         </FadeMotionWrapper>
       </div>
    )
 }

@@ -192,7 +192,7 @@ const AddressDialog = ({ isOpen, onClose, editId }: AddressDialogProps) => {
                      {/* Btn Add Address */}
                      <FadeMotionItem variants={FadeUpVariants} delay={0.55}>
                         <div className='flex justify-end gap-4'>
-                           <Button variant='primary' className='w-fit px-6 py-3 text-sm'>
+                           <Button disabled={isCreating || isUpdating} className='px-8 text-sm'>
                               {isCreating || isUpdating ? (
                                  <>
                                     <Loader2 size={20} className='animate-spin' />
