@@ -1,50 +1,91 @@
+'use client'
+
+import React from 'react'
 import Button from './Button'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog'
-import { DialogClose, DialogDescription, DialogTrigger } from '@radix-ui/react-dialog'
-import { Info } from 'lucide-react'
+
+import {
+   Dialog,
+   DialogContent,
+   DialogFooter,
+   DialogHeader,
+   DialogTitle,
+   DialogDescription,
+   DialogTrigger,
+   DialogClose
+} from '@/components/ui/dialog'
+
+import { AlertTriangle } from 'lucide-react'
 
 type ReminderBoxProps = {
    children: React.ReactNode
    title?: string
    desc?: string
+   confirmText?: string
+   cancelText?: string
    onConfirm: () => void
+   loading?: boolean
+   danger?: boolean
 }
 
 const ReminderBox = ({
    children,
-   title = 'Bạn có chắc không?',
-   desc = 'Bạn có chắc chắn muốn thực hiện hành động này không? Hành động này không thể hoàn tác!',
-   onConfirm
+   title = 'Xác nhận hành động',
+   desc = 'Bạn có chắc chắn muốn tiếp tục? Hành động này có thể không hoàn tác được.',
+   confirmText = 'Xác nhận',
+   cancelText = 'Hủy',
+   onConfirm,
+   loading = false,
+   danger = true
 }: ReminderBoxProps) => {
    return (
       <Dialog>
          <DialogTrigger asChild>{children}</DialogTrigger>
-         <DialogContent>
-            <DialogHeader>
-               <DialogTitle className='flex items-center gap-2 border-b pb-3.5 uppercase'>
-                  <Info className='size-5' />
-                  {title}
-               </DialogTitle>
-               <DialogDescription className='text-extra-gray py-2.5 text-sm'>
-                  {desc}
-               </DialogDescription>
-               <DialogFooter className='mt-4'>
-                  <DialogClose asChild>
-                     <Button
-                        variant='outline'
-                        className='h-fit w-fit px-5 py-2 text-sm'
-                        onClick={onConfirm}
-                     >
-                        Xác nhận
-                     </Button>
-                  </DialogClose>
-                  <DialogClose asChild>
-                     <Button className='h-fit w-fit border-red-600 bg-red-600 px-5 py-2 text-sm hover:border-red-800 hover:bg-red-800'>
-                        Hủy bỏ
-                     </Button>
-                  </DialogClose>
-               </DialogFooter>
+
+         <DialogContent className='max-w-md rounded-2xl border border-zinc-200 p-0 shadow-xl'>
+            <DialogHeader className='space-y-0 p-6 pb-4'>
+               {/* Icon + Title */}
+               <div className='flex items-start gap-3'>
+                  <div
+                     className={`flex size-10 shrink-0 items-center justify-center rounded-full ${
+                        danger ? 'bg-red-100 text-red-600' : 'bg-zinc-100 text-zinc-700'
+                     }`}
+                  >
+                     <AlertTriangle className='size-5' />
+                  </div>
+
+                  <div className='space-y-1 text-left'>
+                     <DialogTitle className='text-base font-semibold text-zinc-900 sm:text-lg'>
+                        {title}
+                     </DialogTitle>
+
+                     <DialogDescription className='text-sm leading-6 text-zinc-500'>
+                        {desc}
+                     </DialogDescription>
+                  </div>
+               </div>
             </DialogHeader>
+
+            {/* Footer */}
+            <DialogFooter className='flex-row justify-end gap-2 border-t border-zinc-100 px-6 py-4'>
+               <DialogClose asChild>
+                  <Button
+                     variant='outline'
+                     className='h-10 rounded-xl border-zinc-300 px-5 text-sm font-medium'
+                  >
+                     {cancelText}
+                  </Button>
+               </DialogClose>
+
+               <Button
+                  onClick={onConfirm}
+                  disabled={loading}
+                  className={`h-10 rounded-xl px-5 text-sm font-medium shadow-none ${
+                     danger ? 'border-red-600 bg-red-600 hover:border-red-700 hover:bg-red-700' : ''
+                  }`}
+               >
+                  {confirmText}
+               </Button>
+            </DialogFooter>
          </DialogContent>
       </Dialog>
    )

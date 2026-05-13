@@ -85,25 +85,27 @@ const Header = () => {
                {/* User */}
                {isAuthenticated ? (
                   <HoverCard openDelay={0} closeDelay={0}>
-                     <HoverCardTrigger asChild>
-                        <div className='flex cursor-pointer items-center gap-x-2'>
-                           <div className='size-11'>
-                              <Image
-                                 width={40}
-                                 height={40}
-                                 alt={user?.username || 'avatar'}
-                                 src={user?.avatar || '/images/default-avt.jpg'}
-                                 className='border-extra-gray h-full w-full rounded-full border object-cover p-[2px]'
-                              />
+                     <Link href='/user/profile'>
+                        <HoverCardTrigger asChild>
+                           <div className='flex cursor-pointer items-center gap-x-2'>
+                              <div className='size-11'>
+                                 <Image
+                                    width={40}
+                                    height={40}
+                                    alt={user?.username || 'avatar'}
+                                    src={user?.avatar || '/images/default-avt.jpg'}
+                                    className='border-extra-gray h-full w-full rounded-full border object-cover p-[2px]'
+                                 />
+                              </div>
+                              <div className='hidden flex-col sm:flex'>
+                                 <span className='text-dark-gray text-xs'>Xin chào!</span>
+                                 <span className='line-clamp-1 max-w-20 text-sm text-black'>
+                                    {user?.username}
+                                 </span>
+                              </div>
                            </div>
-                           <div className='hidden flex-col sm:flex'>
-                              <span className='text-dark-gray text-xs'>Xin chào!</span>
-                              <span className='line-clamp-1 max-w-20 text-sm text-black'>
-                                 {user?.username}
-                              </span>
-                           </div>
-                        </div>
-                     </HoverCardTrigger>
+                        </HoverCardTrigger>
+                     </Link>
 
                      <HoverCardContent>
                         <div className='my-2 border-b px-2 pr-16 pb-2'>

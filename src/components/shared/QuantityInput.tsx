@@ -70,7 +70,7 @@ export default function QuantityInput({
    const isMaximum = typeof quantity === 'number' && quantity >= max
 
    return (
-      <div className='mx-auto flex w-fit items-center justify-center rounded-md border px-3'>
+      <div className='flex w-fit items-center rounded-md border px-3'>
          <div>
             <div className='flex items-center gap-2'>
                <Button

@@ -1,24 +1,35 @@
 'use client'
+
 import Container from '@/components/Container'
+
 import AddressItem from '@/components/features/order/address/AddressItem'
 import AddressItemSkeleton from '@/components/features/order/address/AddressItemSkeleton'
+import ProgressBar from '@/components/features/order/address/ProgressBar'
+
+import BodyContent from '@/components/shared/BodyContent'
 import Button from '@/components/shared/Button'
 import AddressDialog from '@/components/shared/AddressDialog'
-import { useAddressQuery } from '@/hooks/useAddressQuery'
-import { CirclePlus, MapPinHouse } from 'lucide-react'
-import { useState } from 'react'
-import ProgressBar from '@/components/features/order/address/ProgressBar'
-import { useRouter } from 'next/navigation'
-import { useCartQuery } from '@/hooks/useCartQuery'
 import FallbackExpired from '@/components/shared/FallbackExpired'
-import BodyContent from '@/components/shared/BodyContent'
+
+import { useAddressQuery } from '@/hooks/useAddressQuery'
+import { useCartQuery } from '@/hooks/useCartQuery'
+
 import { useCheckoutStore } from '@/store/checkout.store'
+
+import { MapPinHouse, Plus } from 'lucide-react'
+
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+
 const Address = () => {
    const router = useRouter()
+
    const { updateCheckout } = useCheckoutStore()
+
    const { cart } = useCartQuery()
 
    const [isOpen, setIsOpen] = useState(false)
+
    const [editId, setEditId] = useState<number | null>(null)
 
    const { addresses, isLoading } = useAddressQuery()
@@ -41,74 +52,114 @@ const Address = () => {
    const defaultAddress = addresses.find((address) => address.is_default)
 
    const handleNext = (id: number) => {
-      updateCheckout({ addressId: id })
+      updateCheckout({
+         addressId: id
+      })
+
       router.push('/checkout/shipping')
    }
 
    if (!cart?.items.length) {
       return <FallbackExpired />
    }
+
    return (
       <Container>
-         <BodyContent>
-            <ProgressBar step={1} className='py-6' />
-            {/* Title */}
-            <h1 className='text-dark-gray mb-8 text-lg font-semibold'>Chọn địa chỉ</h1>
+         <BodyContent className='pb-10'>
+            {/* Progress */}
+            <ProgressBar step={1} className='py-6 sm:py-8' />
 
-            {/* Address Items */}
-            <div className='flex flex-col gap-4'>
+            {/* Header */}
+            <div className='mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between'>
+               <div>
+                  <h1 className='text-xl font-semibold text-zinc-900 sm:text-2xl'>Chọn địa chỉ</h1>
+
+                  <p className='mt-1 text-sm text-zinc-500'>
+                     Chọn địa chỉ nhận hàng phù hợp cho đơn hàng của bạn.
+                  </p>
+               </div>
+
+               {/* Add Address Desktop */}
+               {!!addresses.length && (
+                  <Button
+                     onClick={handleOpenDialog}
+                     variant='outline'
+                     className='hidden h-11 rounded-xl border-zinc-300 px-5 text-sm font-medium shadow-none lg:flex'
+                  >
+                     <Plus className='size-4' />
+                     Thêm địa chỉ
+                  </Button>
+               )}
+            </div>
+
+            {/* Address List */}
+            <div className='space-y-4'>
                {isLoading
-                  ? Array.from({ length: 3 }).map((_, i) => <AddressItemSkeleton key={i} />)
+                  ? Array.from({
+                       length: 3
+                    }).map((_, i) => <AddressItemSkeleton key={i} />)
                   : addresses.map((address) => (
                        <AddressItem key={address.id} address={address} onEdit={handleEdit} />
                     ))}
             </div>
 
+            {/* Empty State */}
             {!isLoading && !addresses.length && (
-               <div className='flex min-h-80 w-full flex-col items-center justify-center'>
-                  <h1 className='text-dark-gray flex items-center gap-2 text-2xl font-medium tracking-wide text-nowrap'>
-                     <MapPinHouse size={20} className='shrink-0' />
-                     Thêm địa chỉ khác để tiếp tục đặt hàng.
-                  </h1>
-                  <p className='text-dark-gray mt-2 font-light'>
-                     Vui lòng nhập địa chỉ chính xác để việc giao hàng được thuận lợi nhất.
+               <div className='flex min-h-[320px] flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-300 bg-zinc-50 px-6 text-center'>
+                  <div className='flex size-16 items-center justify-center rounded-full bg-white shadow-sm'>
+                     <MapPinHouse className='size-7 text-zinc-500' />
+                  </div>
+
+                  <h2 className='mt-5 text-lg font-semibold text-zinc-900 sm:text-xl'>
+                     Chưa có địa chỉ giao hàng
+                  </h2>
+
+                  <p className='mt-2 max-w-md text-sm leading-6 text-zinc-500'>
+                     Vui lòng thêm địa chỉ chính xác để việc giao hàng được thuận lợi hơn.
                   </p>
+
+                  <Button
+                     variant='secondary'
+                     onClick={handleOpenDialog}
+                     className='mt-6 rounded-xl px-5 text-sm font-semibold'
+                  >
+                     <Plus className='size-4' />
+                     Thêm địa chỉ
+                  </Button>
                </div>
             )}
 
-            {/* Add New Address Btn */}
-            <div className='mt-10 flex justify-center py-4'>
-               <div className='relative w-full'>
-                  <div className='absolute inset-0 flex items-center'>
-                     <div className='w-full border-t-2 border-dotted border-gray-300'></div>
-                  </div>
-                  <div className='relative flex items-center justify-center'>
-                     <Button
-                        onClick={handleOpenDialog}
-                        variant='icon'
-                        className='bg-white font-semibold'
-                     >
-                        <CirclePlus size={22} />
-                        Thêm địa chỉ mới
-                     </Button>
-
-                     <AddressDialog editId={editId} isOpen={isOpen} onClose={handleCloseDialog} />
-                  </div>
+            {/* Mobile Add Button */}
+            {!!addresses.length && (
+               <div className='mt-6 sm:hidden'>
+                  <Button
+                     onClick={handleOpenDialog}
+                     variant='outline'
+                     className='h-11 w-full rounded-xl border-dashed border-zinc-300 text-sm font-medium shadow-none'
+                  >
+                     <Plus className='size-4' />
+                     Thêm địa chỉ mới
+                  </Button>
                </div>
-            </div>
+            )}
 
-            <div className='mt-10 mb-4 flex justify-end gap-2.5'>
+            {/* Dialog */}
+            <AddressDialog editId={editId} isOpen={isOpen} onClose={handleCloseDialog} />
+
+            {/* Footer Actions */}
+            <div className='mt-8 flex flex-col-reverse gap-3 border-t border-zinc-100 pt-6 sm:mt-10 sm:flex-row sm:items-center sm:justify-end'>
                <Button
                   onClick={() => router.back()}
                   variant='outline'
-                  className='w-fit px-16 py-3.5 text-sm'
+                  className='h-11 rounded-xl px-6 text-sm font-medium sm:px-10'
                >
                   Trở về
                </Button>
+
                <Button
                   onClick={() => handleNext(defaultAddress?.id as number)}
                   variant='primary'
-                  className='w-fit px-16 py-3.5 text-sm'
+                  className='h-11 rounded-xl px-6 text-sm font-medium sm:px-10'
                >
                   Tiếp tục
                </Button>

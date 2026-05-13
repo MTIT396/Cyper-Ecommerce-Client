@@ -11,7 +11,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import FormWrapper from '@/components/shared/FormWrapper'
 import TextFormField from '@/components/shared/TextFormField'
 import Button from '@/components/shared/Button'
-import { Info, Upload, UserRoundCheck, X } from 'lucide-react'
+import { Info, Upload, UserPen, X } from 'lucide-react'
 import { FadeMotionWrapper } from '@/components/shared/FadeMotionWrapper'
 import { FadeMotionItem } from '@/components/shared/FadeMotionItem'
 import { FadeUpVariants } from '@/lib/variants'
@@ -125,8 +125,8 @@ export function ProfileInformationForm({
             {/* Username Section */}
             <FadeMotionItem variants={FadeUpVariants} delay={0.1}>
                <div className='space-y-4'>
-                  <h3 className='text-dark-gray flex items-center gap-2 border-b pb-2 text-xl font-semibold'>
-                     <UserRoundCheck className='text-primary size-5' />
+                  <h3 className='text-dark-gray flex items-center gap-2 border-b pb-2 text-base font-semibold sm:text-xl'>
+                     <UserPen className='text-primary size-5' />
                      Cập nhật thông tin tài khoản
                   </h3>
                   <TextFormField
@@ -141,8 +141,6 @@ export function ProfileInformationForm({
             {/* Avatar Section */}
             <FadeMotionItem variants={FadeUpVariants} delay={0.2}>
                <div className='space-y-4'>
-                  <h3 className='text-dark-gray text-sm font-semibold'>Ảnh đại diện</h3>
-
                   <div className='flex flex-col items-center space-y-4'>
                      {/* Avatar Display */}
                      <div className='ring-accent relative mb-10 size-32 overflow-hidden rounded-full ring-3 ring-offset-2'>

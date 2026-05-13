@@ -7,7 +7,6 @@ import { ShoppingBag, Package } from 'lucide-react'
 import Container from '@/components/Container'
 import BodyContent from '@/components/shared/BodyContent'
 import Button from '@/components/shared/Button'
-import InfoItem from '@/components/shared/InfoItem'
 import CartSheet from '@/components/features/cart/CartSheet'
 
 import { Card, CardContent } from '@/components/ui/card'
@@ -24,6 +23,7 @@ import { ChangePasswordDialog } from '@/components/features/profile/ChangePasswo
 import { CheckoutStatus } from '@/types/order.type'
 import { FadeMotionWrapper } from '@/components/shared/FadeMotionWrapper'
 import { FadeUpVariants } from '@/lib/variants'
+import StatRow from '@/components/shared/StatRow'
 
 export default function ProfilePage() {
    const { user } = useAuth()
@@ -69,12 +69,8 @@ export default function ProfilePage() {
 
                      {cart && cart.items.length > 0 ? (
                         <div className='space-y-4'>
-                           <InfoItem
-                              label='Tổng tiền'
-                              content={formatVNCurrency(cart.total || 0)}
-                           />
-
-                           <InfoItem label='Sản phẩm' content={`${cart.items.length} sản phẩm`} />
+                           <StatRow label='Tổng tiền' content={formatVNCurrency(cart.total || 0)} />
+                           <StatRow label='Sản phẩm' content={`${cart.items.length} sản phẩm`} />
 
                            <CartSheet>
                               <Button variant='outline' className='mt-4 w-full text-sm'>
@@ -84,8 +80,8 @@ export default function ProfilePage() {
                         </div>
                      ) : (
                         <div className='flex min-h-[450px] flex-col items-center justify-center text-center'>
-                           <div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-red-50'>
-                              <ShoppingBag className='size-12 text-red-400' />
+                           <div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-zinc-50'>
+                              <ShoppingBag className='size-12 text-zinc-400' />
                            </div>
 
                            <h2 className='text-2xl font-bold text-zinc-900'>
@@ -119,8 +115,8 @@ export default function ProfilePage() {
 
                      {orders?.data.length ? (
                         <div className='space-y-4'>
-                           <InfoItem label='Tổng đơn hàng' content={`${orders.data.length} đơn`} />
-                           <InfoItem label='Tổng tiêu' content={formatVNCurrency(totalCost)} />
+                           <StatRow label='Tổng đơn hàng' content={`${orders.data.length} đơn`} />
+                           <StatRow label='Tổng tiêu' content={formatVNCurrency(totalCost)} />
 
                            <Link href='/user/profile/order'>
                               <Button variant='outline' className='mt-4 w-full text-sm'>

@@ -65,7 +65,7 @@ export default function OrderProgressbar({ className, status, isPaid }: Props) {
    }
 
    const currentStep = steps.findIndex((s) => s.key === status)
-
+   console.log(status)
    return (
       <div className={cn('flex flex-col gap-0', className)}>
          {steps.map((step, index) => {

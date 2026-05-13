@@ -1,21 +1,32 @@
+'use client'
+
 import Button from '@/components/shared/Button'
 import QuantityInput from '@/components/shared/QuantityInput'
 import ReminderBox from '@/components/shared/ReminderBox'
+
 import { useCartQuery } from '@/hooks/useCartQuery'
+
 import { formatVNCurrency } from '@/lib/utils'
+
 import type { CartItem } from '@/types/cart.type'
+
 import { Trash2 } from 'lucide-react'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
 type CartItemProps = {
    item?: CartItem
 }
+
 const CartItem = ({ item }: CartItemProps) => {
    const { removeFromCart, updateCartItem } = useCartQuery()
 
    const handleUpdateQuantity = (quantity: number) => {
-      updateCartItem({ item_id: item?.id as number, quantity })
+      updateCartItem({
+         item_id: item?.id as number,
+         quantity
+      })
    }
 
    const handleRemoveItem = () => {
@@ -23,68 +34,80 @@ const CartItem = ({ item }: CartItemProps) => {
    }
 
    return (
-      <>
-         <div className='flex items-center gap-3 py-5'>
-            <Link href={`/product/${item?.slug}?sku=${item?.variant?.sku}`}>
+      <div className='rounded-2xl border border-zinc-200 bg-white p-4 transition-all duration-300 hover:border-zinc-300 hover:shadow-sm'>
+         <div className='flex gap-3'>
+            {/* Product Image */}
+            <Link href={`/product/${item?.slug}?sku=${item?.variant?.sku}`} className='shrink-0'>
                <Image
-                  width={90}
-                  height={90}
-                  className='object-contain'
+                  width={88}
+                  height={88}
                   src={item?.image_url as string}
                   alt={item?.name as string}
+                  className='size-20 rounded-xl object-contain p-2 sm:size-[88px]'
                />
             </Link>
-            <div className='flex w-full items-center justify-between gap-6'>
-               <div className='flex flex-1 flex-col gap-x-2 gap-y-0.5'>
-                  <Link href={`/product/${item?.slug}?sku=${item?.variant?.sku}`}>
-                     <h2 className='text-primary mb-1.5 line-clamp-2 text-sm font-semibold'>
-                        {item?.name}
-                     </h2>
-                  </Link>
-                  {/* Attributes */}
+
+            {/* Right Content */}
+            <div className='flex min-w-0 flex-1 flex-col'>
+               {/* Product Name */}
+               <Link href={`/product/${item?.slug}?sku=${item?.variant?.sku}`}>
+                  <h2 className='line-clamp-2 text-sm leading-5 font-semibold text-zinc-900 sm:text-base'>
+                     {item?.name}
+                  </h2>
+               </Link>
+
+               {/* Attributes */}
+               <div className='mt-2 flex flex-wrap gap-x-4 gap-y-1'>
                   {item?.variant?.attributes.map((attr) => (
-                     <div key={attr.id} className='flex items-center gap-2'>
-                        <span className='text-dark-gray text-sm'>
-                           {attr.name}:{' '}
-                           <span className='text-primary font-medium'>{attr.value}</span>
-                        </span>
+                     <div key={attr.id} className='flex items-center gap-1.5 text-sm text-zinc-600'>
+                        <span className='font-medium text-zinc-700'>{attr.name}:</span>
+
+                        <span className='text-primary font-medium'>{attr.value}</span>
+
                         {attr.slug === 'color' && (
                            <div
-                              className='size-4 rounded-full'
-                              style={{ background: item?.variant?.color.hex_code }}
+                              className='size-3.5 rounded-full border border-zinc-200'
+                              style={{
+                                 background: item?.variant?.color.hex_code
+                              }}
                            />
                         )}
                      </div>
                   ))}
                </div>
-               {/* Actions */}
-               <div className='flex shrink-0 flex-col items-end gap-2.5'>
-                  <span className='text-base font-semibold tabular-nums'>
-                     {formatVNCurrency((item?.quantity as number) * (item?.price as number))}
-                  </span>
-                  <div className='flex items-center gap-2.5'>
+
+               {/* Bottom Section */}
+               <div className='mt-4 flex flex-col gap-3 border-t border-zinc-100 pt-3 sm:flex-row-reverse sm:items-center sm:justify-between'>
+                  {/* Quantity + Remove */}
+                  <div className='ml-auto flex items-center gap-2'>
                      <QuantityInput
                         onChange={(value) => handleUpdateQuantity(value)}
                         initialValue={item?.quantity}
                      />
+
                      <ReminderBox
-                        title='Xóa sản phẩm này'
-                        desc='Bạn có chắc chắn muốn xóa mặt hàng này không? Thao tác này không thể hoàn tác và mặt hàng này sẽ bị xóa khỏi giỏ hàng của bạn.'
+                        title='Xóa sản phẩm'
+                        desc='Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?'
                         onConfirm={handleRemoveItem}
                      >
                         <Button
                            aria-label='remove-item'
                            variant='icon'
-                           className='rounded-md border-0 p-1 text-red-500 shadow-none hover:bg-transparent hover:text-red-600'
+                           className='size-9 rounded-full border border-red-200 bg-red-50 p-0 text-red-500 shadow-none transition hover:border-red-300 hover:bg-red-100 hover:text-red-600'
                         >
-                           <Trash2 className='size-5' />
+                           <Trash2 className='size-4' />
                         </Button>
                      </ReminderBox>
                   </div>
+
+                  {/* Price */}
+                  <span className='text-right text-lg font-bold text-zinc-900 tabular-nums'>
+                     {formatVNCurrency((item?.quantity as number) * (item?.price as number))}
+                  </span>
                </div>
             </div>
          </div>
-      </>
+      </div>
    )
 }
 

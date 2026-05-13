@@ -12,7 +12,7 @@ import Link from 'next/link'
 export default function WishlistPage() {
    const { wishlist, isLoading } = useWishlistQuery()
    return (
-      <FadeMotionItem variants={FadeUpVariants} className='rounded-[28px] bg-white p-8'>
+      <FadeMotionItem variants={FadeUpVariants} className='rounded-2xl bg-white p-4 sm:p-8'>
          <FadeMotionItem variants={FadeUpVariants}>
             <div className='mb-8 pb-2'>
                <h1 className='flex items-center gap-2 text-2xl font-semibold'>

@@ -26,7 +26,7 @@ export default function ProductsToolbar({
    }
 
    return (
-      <div className='mb-2 flex flex-wrap items-center justify-between gap-2'>
+      <div className='mb-2 flex flex-wrap items-start justify-between gap-2 sm:items-center'>
          {query ? (
             <p className='text-primary text-[15px] font-medium'>
                Kết quả tìm kiếm cho <span className='font-mono text-base font-bold'>{query}</span>{' '}
@@ -42,8 +42,8 @@ export default function ProductsToolbar({
          <div className='ml-auto flex flex-col items-center gap-2 sm:flex-row sm:gap-6'>
             <Button
                onClick={onShowSidebar}
-               variant='icon'
-               className='size-fit rounded-md px-2.5 py-2 text-sm lg:hidden'
+               variant='secondary'
+               className='ml-auto size-fit rounded-md px-2.5 py-2 text-sm lg:hidden'
             >
                <span>Mở bộ lọc</span>
                <SlidersHorizontal className='size-5' />

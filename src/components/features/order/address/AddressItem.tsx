@@ -1,11 +1,16 @@
+'use client'
+
 import Button from '@/components/shared/Button'
 import ReminderBox from '@/components/shared/ReminderBox'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
+
 import { useAddressQuery } from '@/hooks/useAddressQuery'
 import { useCheckoutStore } from '@/store/checkout.store'
+
 import { AddressResponse } from '@/types/address.type'
-import { Check, MapPin, Pencil, Phone, X } from 'lucide-react'
+
+import { Check, MapPin, Pencil, Phone, Trash2 } from 'lucide-react'
 
 type AddressItemProps = {
    address: AddressResponse
@@ -14,11 +19,15 @@ type AddressItemProps = {
 
 const AddressItem = ({ address, onEdit }: AddressItemProps) => {
    const { updateCheckout } = useCheckoutStore()
+
    const { setDefaultAddress, deleteAddress } = useAddressQuery()
 
    const handleSetDefaultAddress = () => {
       setDefaultAddress(address.id)
-      updateCheckout({ addressId: address.id })
+
+      updateCheckout({
+         addressId: address.id
+      })
    }
 
    const handleDeleteAddress = () => {
@@ -27,59 +36,86 @@ const AddressItem = ({ address, onEdit }: AddressItemProps) => {
 
    return (
       <div
-         className={`${address.is_default ? 'ring-primary from-extra-gray/10 via-extra-gray/5 bg-linear-to-br to-transparent shadow-[0_4px_12px_rgba(100,100,100,0.15)] ring-[1.5px]' : 'bg-bg-gray'} relative flex items-center justify-between rounded-xl p-4 transition-all duration-200`}
+         className={`relative rounded-2xl border p-4 transition-all duration-300 sm:p-5 ${
+            address.is_default
+               ? 'border-primary/50 bg-light-gray/50 shadow-sm'
+               : 'border-zinc-200 bg-white hover:border-zinc-300'
+         }`}
       >
-         <div className='flex gap-4'>
-            <Checkbox
-               checked={address.is_default}
-               onCheckedChange={handleSetDefaultAddress}
-               className='border-dark-gray size-5 rounded-full border-2'
-            />
-            <div className='flex flex-col gap-4'>
-               <div className='flex items-center gap-2'>
-                  <p className='text-dark-gray leading-none font-semibold'>{address.full_name}</p>
-                  {address.is_default && (
-                     <Badge className='border-green-500 bg-green-200 font-semibold text-green-800'>
-                        <Check />
-                        Mặc định
-                     </Badge>
-                  )}
+         <div className='flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between'>
+            {/* Left */}
+            <div className='flex min-w-0 gap-3 sm:gap-4'>
+               {/* Checkbox */}
+               <div className='pt-1'>
+                  <Checkbox
+                     checked={address.is_default}
+                     onCheckedChange={handleSetDefaultAddress}
+                     className='size-5 rounded-full border-2'
+                  />
                </div>
-               <div className='space-y-2'>
-                  <div className='flex items-center gap-2'>
-                     <MapPin className='size-4' />
-                     <p className='text-sm'>
-                        {address.street}, {address.ward}, {address.province}
-                     </p>
+
+               {/* Content */}
+               <div className='min-w-0 flex-1'>
+                  {/* Header */}
+                  <div className='flex flex-wrap items-center gap-2'>
+                     <h3 className='text-sm font-semibold text-zinc-900 sm:text-base'>
+                        {address.full_name}
+                     </h3>
+
+                     {address.is_default && (
+                        <Badge className='rounded-full border-0 bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700 hover:bg-green-100'>
+                           <Check className='mr-1 size-3.5' />
+                           Mặc định
+                        </Badge>
+                     )}
                   </div>
-                  <div className='flex items-center gap-2'>
-                     <Phone className='size-4' />
-                     <p className='text-sm'>{address.phone}</p>
+
+                  {/* Address */}
+                  <div className='mt-3 space-y-2'>
+                     <div className='flex items-start gap-2 text-sm text-zinc-600'>
+                        <MapPin className='mt-0.5 size-4 shrink-0' />
+
+                        <p className='leading-6 break-words'>
+                           {address.street}, {address.ward}, {address.province}
+                        </p>
+                     </div>
+
+                     <div className='flex items-center gap-2 text-sm text-zinc-600'>
+                        <Phone className='size-4 shrink-0' />
+
+                        <p>{address.phone}</p>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
-         <div className='flex items-center gap-4'>
-            <Button
-               onClick={() => onEdit(address.id)}
-               variant='icon'
-               className='size-fit rounded-full p-2.5'
-            >
-               <Pencil size={18} />
-            </Button>
-            <ReminderBox onConfirm={handleDeleteAddress}>
+
+            {/* Actions */}
+            <div className='flex items-center justify-end gap-2 sm:justify-start'>
+               {/* Edit */}
                <Button
-                  aria-label='remove-address-item'
+                  onClick={() => onEdit(address.id)}
                   variant='icon'
-                  className='size-fit rounded-full p-2.5'
+                  className='size-9 rounded-full border border-zinc-200 bg-white p-0 text-zinc-600 shadow-none transition hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900'
                >
-                  <X size={18} />
+                  <Pencil size={16} />
                </Button>
-            </ReminderBox>
+
+               {/* Delete */}
+               <ReminderBox
+                  title='Xóa địa chỉ'
+                  desc='Bạn có chắc chắn muốn xóa địa chỉ này không?'
+                  onConfirm={handleDeleteAddress}
+               >
+                  <Button
+                     aria-label='remove-address-item'
+                     variant='icon'
+                     className='size-9 rounded-full border border-red-200 bg-red-50 p-0 text-red-500 shadow-none transition hover:border-red-300 hover:bg-red-100 hover:text-red-600'
+                  >
+                     <Trash2 size={16} />
+                  </Button>
+               </ReminderBox>
+            </div>
          </div>
-         {address.is_default && (
-            <span className='bg-dark-gray absolute top-2 right-2 size-3 rounded-full' />
-         )}
       </div>
    )
 }

@@ -9,9 +9,9 @@ type InfoCardProps = {
 
 const InfoCard = ({ className, title, children }: InfoCardProps) => {
    return (
-      <div className={cn('rounded-md border p-6 shadow-sm', className)}>
+      <div className='rounded-md border p-6 shadow-sm'>
          <h1 className='border-b pb-2 text-2xl font-bold'>{title}</h1>
-         <div className='mt-4 space-y-2.5'>{children}</div>
+         <div className={cn('mt-4 space-y-3', className)}>{children}</div>
       </div>
    )
 }

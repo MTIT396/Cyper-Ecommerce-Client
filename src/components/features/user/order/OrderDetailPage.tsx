@@ -7,14 +7,25 @@ import Loading from '@/components/shared/Loading'
 import BodyContent from '@/components/shared/BodyContent'
 import Button from '@/components/shared/Button'
 import InfoCard from '@/components/shared/InfoCard'
-import InfoItem from '@/components/shared/InfoItem'
 import InfoRow from '@/components/shared/InfoRow'
 import OrderItem from './OrderItem'
 import OrderProgressbar from './OrderProgressbar'
 import PaymentDialog from '@/components/shared/PaymentDialog'
 import ReminderBox from '@/components/shared/ReminderBox'
 
-import { BadgeCheckIcon, Clock, CreditCard, Package, ShoppingBag, Wallet, X } from 'lucide-react'
+import {
+   BadgeCheckIcon,
+   Clock,
+   CreditCard,
+   Mail,
+   MapPinHouse,
+   Package,
+   Phone,
+   ShoppingBag,
+   User,
+   Wallet,
+   X
+} from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 
@@ -29,6 +40,7 @@ import { CheckoutStatus, Order } from '@/types/order.type'
 
 import { useCancelOrder, useOrderDetail } from '@/hooks/useOrderQuery'
 import { usePaymentMomoQuery } from '@/hooks/usePaymentMomoQuery'
+import InfoItem from '@/components/shared/InfoItem'
 
 const OrderDetailPage = ({ order_id }: { order_id: number }) => {
    const [open, setOpen] = useState(false)
@@ -249,24 +261,31 @@ const OrderDetailPage = ({ order_id }: { order_id: number }) => {
 
                   {/* INFO */}
                   <div className='space-y-6'>
-                     <InfoCard title='Thông tin nhận hàng'>
+                     <InfoCard title='Thông tin nhận hàng' className='space-y-4'>
                         <InfoItem
+                           icon={User}
                            label='Người nhận'
-                           content={order?.shipping_address.full_name || ''}
+                           info={order?.shipping_address.full_name || ''}
                         />
 
                         <InfoItem
+                           icon={Phone}
                            label='Số điện thoại'
-                           content={order?.shipping_address.phone || ''}
+                           info={order?.shipping_address.phone || ''}
                         />
 
                         <InfoItem
+                           icon={MapPinHouse}
                            label='Địa chỉ'
-                           content={`${order?.shipping_address.street}, ${order?.shipping_address.ward}, ${order?.shipping_address.province}`}
+                           info={`${order?.shipping_address.street}, ${order?.shipping_address.ward}, ${order?.shipping_address.province}`}
                         />
 
                         {order?.shipping_address.email && (
-                           <InfoItem label='Email' content={order?.shipping_address.email || ''} />
+                           <InfoItem
+                              icon={Mail}
+                              label='Email'
+                              info={order?.shipping_address.email || ''}
+                           />
                         )}
                      </InfoCard>
 
@@ -320,35 +339,46 @@ const OrderDetailPage = ({ order_id }: { order_id: number }) => {
                {/* ================= PAYMENT ================= */}
 
                {isPending && (
-                  <div className='rounded-3xl border border-yellow-200 bg-yellow-50 p-5'>
-                     <div className='flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between'>
+                  <div className='rounded-3xl border border-yellow-200 bg-gradient-to-br from-yellow-50 to-yellow-100/40 p-4 shadow-sm sm:p-5'>
+                     <div className='flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between'>
+                        {/* Left Content */}
                         <div className='flex items-start gap-4'>
-                           <div className='flex size-12 shrink-0 items-center justify-center rounded-full bg-yellow-100'>
+                           {/* Icon */}
+                           <div className='flex size-11 shrink-0 items-center justify-center rounded-2xl bg-yellow-100 ring-1 ring-yellow-200'>
                               <CreditCard className='size-5 text-yellow-700' />
                            </div>
 
-                           <div>
-                              <h3 className='text-lg font-semibold text-zinc-900'>
+                           {/* Text */}
+                           <div className='min-w-0'>
+                              <h3 className='text-base font-semibold text-zinc-900 sm:text-lg'>
                                  Đơn hàng chưa thanh toán
                               </h3>
 
-                              <p className='text-extra-gray mt-1 text-sm leading-relaxed'>
+                              <p className='mt-1 max-w-xl text-sm leading-6 text-zinc-600'>
                                  Hoàn tất thanh toán để đơn hàng được xử lý và giao đến bạn nhanh
                                  hơn.
                               </p>
                            </div>
                         </div>
 
-                        <PaymentDialog order={order as Order} isOpen={open} onClose={handleClose} />
+                        {/* Actions */}
+                        <div className='flex shrink-0 items-center gap-3'>
+                           <PaymentDialog
+                              order={order as Order}
+                              isOpen={open}
+                              onClose={handleClose}
+                           />
 
-                        <Button
-                           onClick={() => setOpen(true)}
-                           variant='primary'
-                           className='rounded-xl px-6 py-3 text-sm'
-                        >
-                           <CreditCard className='size-4 text-white' />
-                           Thanh toán ngay
-                        </Button>
+                           <Button
+                              onClick={() => setOpen(true)}
+                              variant='primary'
+                              className='h-11 rounded-xl px-5 text-sm font-medium shadow-sm transition hover:shadow-md'
+                           >
+                              <CreditCard className='size-4 text-white' />
+
+                              <span>Thanh toán ngay</span>
+                           </Button>
+                        </div>
                      </div>
                   </div>
                )}

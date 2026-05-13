@@ -1,4 +1,5 @@
 'use client'
+
 import Button from '@/components/shared/Button'
 import ReminderBox from '@/components/shared/ReminderBox'
 import { useWishlistQuery } from '@/hooks/useWishlistQuery'
@@ -10,85 +11,82 @@ import Link from 'next/link'
 
 const WishlistCard = ({ wishlist }: { wishlist: Wishlist }) => {
    const { toggleWishlist, isToggling } = useWishlistQuery()
-   const salePercent = ((wishlist.base_price - wishlist.sale_price) / wishlist.base_price) * 100
+
+   const salePercent =
+      wishlist.base_price > wishlist.sale_price
+         ? ((wishlist.base_price - wishlist.sale_price) / wishlist.base_price) * 100
+         : 0
+
    return (
-      <Link href={`/product/${wishlist.slug}`} className='relative w-full max-w-3xl'>
-         <div className='flex items-center justify-between gap-3 rounded-md border p-4 transition duration-300 hover:shadow-sm'>
-            <Image
-               width={80}
-               height={80}
-               className='rounded-lg object-contain p-1.5'
-               src={wishlist.image_url}
-               alt={wishlist.name}
-            />
-            <div className='flex w-full flex-col gap-x-2'>
-               <h2 className='mb-1 line-clamp-2 text-sm font-semibold sm:text-base'>
+      <Link href={`/product/${wishlist.slug}`} className='group relative block w-full'>
+         {/* Discount Badge */}
+         {!!salePercent && (
+            <div className='absolute top-3 left-3 z-10'>
+               <div className='rounded-full bg-red-500 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm'>
+                  -{Math.round(salePercent)}%
+               </div>
+            </div>
+         )}
+
+         <div className='flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-3 transition-all duration-300 hover:border-zinc-300 hover:shadow-md sm:p-4'>
+            {/* Product Image */}
+            <div className='shrink-0'>
+               <Image
+                  width={96}
+                  height={96}
+                  className='size-20 rounded-xl object-contain p-2 sm:size-24'
+                  src={wishlist.image_url}
+                  alt={wishlist.name}
+               />
+            </div>
+
+            {/* Product Info */}
+            <div className='min-w-0 flex-1'>
+               <h2 className='line-clamp-2 text-sm leading-5 font-semibold text-zinc-900 sm:text-base'>
                   {wishlist.name}
                </h2>
-               <p className='text-sm'>
-                  Mã sản phẩm: <span className='font-semibold'>{wishlist.product_id}</span>
+
+               <p className='mt-1 text-xs text-zinc-500 sm:text-sm'>
+                  Mã sản phẩm:{' '}
+                  <span className='font-medium text-zinc-700'>#{wishlist.product_id}</span>
                </p>
             </div>
 
-            <div className='flex flex-wrap items-center sm:gap-6'>
-               <div className='ml-auto flex flex-col items-center'>
-                  <span className='text-primary text-sm font-semibold sm:text-lg'>
-                     {formatVNCurrency(wishlist.sale_price)}
-                  </span>
-                  <div className='flex items-center gap-2'>
-                     <span className='text-extra-gray text-sm line-through sm:text-sm'>
-                        {formatVNCurrency(wishlist.base_price)}
-                     </span>
+            {/* Price + Actions */}
+            <div className='ml-auto flex shrink-0 flex-col items-end gap-1'>
+               <span className='text-primary text-sm font-bold sm:text-lg'>
+                  {formatVNCurrency(wishlist.sale_price)}
+               </span>
 
-                     {/* Remove Wishlist Btn */}
-                     <div
-                        className='size-4'
-                        onClick={(e) => {
-                           e.preventDefault()
-                           e.stopPropagation()
-                        }}
-                     >
-                        <ReminderBox onConfirm={() => toggleWishlist(wishlist.product_id)}>
-                           <Button
-                              variant='icon'
-                              disabled={isToggling}
-                              className='h-fit w-fit border-none p-0 text-sm text-red-400 shadow-none hover:text-red-600'
-                           >
-                              {isToggling ? (
-                                 <Loader2 className='animate-spin' />
-                              ) : (
-                                 <Trash2 className='size-4' />
-                              )}
-                           </Button>
-                        </ReminderBox>
-                     </div>
+               <div className='flex items-center gap-2'>
+                  <span className='text-xs text-zinc-400 line-through sm:text-sm'>
+                     {formatVNCurrency(wishlist.base_price)}
+                  </span>
+
+                  {/* Remove Wishlist */}
+                  <div
+                     onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                     }}
+                  >
+                     <ReminderBox onConfirm={() => toggleWishlist(wishlist.product_id)}>
+                        <Button
+                           variant='icon'
+                           disabled={isToggling}
+                           className='h-8 w-8 rounded-full border-none bg-zinc-100 p-0 text-zinc-500 shadow-none transition hover:bg-red-50 hover:text-red-500'
+                        >
+                           {isToggling ? (
+                              <Loader2 className='size-4 animate-spin' />
+                           ) : (
+                              <Trash2 className='size-4' />
+                           )}
+                        </Button>
+                     </ReminderBox>
                   </div>
                </div>
             </div>
          </div>
-         {!!salePercent && (
-            <div className='absolute -top-[7px] left-4'>
-               <span
-                  className='relative bg-red-500 px-1.5 py-1 text-xs font-semibold text-white'
-                  style={{ borderRadius: '0 4px 4px 4px' }}
-               >
-                  <span
-                     style={{
-                        content: '',
-                        position: 'absolute',
-                        top: 0,
-                        left: '-6px',
-                        width: 0,
-                        height: 0,
-                        borderBottom: '6px solid #970b12',
-                        borderLeft: '6px solid transparent'
-                     }}
-                     aria-hidden='true'
-                  />
-                  Giảm {Math.round(salePercent)}%
-               </span>
-            </div>
-         )}
       </Link>
    )
 }

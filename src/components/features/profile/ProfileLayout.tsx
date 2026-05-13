@@ -94,8 +94,6 @@ export default function ProfileLayout({ children }: Props) {
                         <div className='flex flex-col gap-5 sm:flex-row sm:items-end'>
                            {/* AVATAR */}
                            <div className='group relative my-auto'>
-                              <div className='absolute inset-0 rounded-full bg-black/10 blur-2xl transition-all duration-500 group-hover:scale-110' />
-
                               <div className='relative size-32 overflow-hidden rounded-full border-[6px] border-white bg-zinc-100 shadow-xl'>
                                  <Image
                                     src={user.avatar || '/images/default-avt.jpg'}
@@ -200,7 +198,7 @@ export default function ProfileLayout({ children }: Props) {
 
                   {/* SIDEBAR */}
                   <aside
-                     className={`fixed inset-y-0 left-0 z-20 w-[300px] bg-white p-5 transition-transform duration-300 lg:sticky lg:top-6 lg:h-fit lg:translate-x-0 lg:rounded-[32px] lg:border lg:border-zinc-200 lg:shadow-md ${
+                     className={`fixed inset-y-0 left-0 z-50 w-[300px] bg-white p-5 shadow transition-transform duration-300 sm:z-40 lg:sticky lg:top-6 lg:h-fit lg:translate-x-0 lg:rounded-[32px] lg:border lg:border-zinc-200 lg:shadow-md ${
                         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                      }`}
                   >
@@ -209,6 +207,7 @@ export default function ProfileLayout({ children }: Props) {
                         <h2 className='text-xl font-bold text-zinc-900'>Menu</h2>
 
                         <Button
+                           variant='outline'
                            onClick={() => setIsSidebarOpen(false)}
                            className='size-10 rounded-full bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
                         >
@@ -275,7 +274,7 @@ export default function ProfileLayout({ children }: Props) {
                               logout()
                               setIsSidebarOpen(false)
                            }}
-                           className='h-12 w-full justify-start rounded-2xl border-zinc-200 bg-zinc-50 text-zinc-700 hover:bg-zinc-100'
+                           className='h-12 w-full justify-start rounded-2xl border-red-200 bg-red-50 text-red-600 hover:border-red-100 hover:bg-red-100'
                         >
                            <LogOut className='size-5' />
                            Đăng xuất
@@ -286,7 +285,7 @@ export default function ProfileLayout({ children }: Props) {
                   {/* OVERLAY */}
                   {isSidebarOpen && (
                      <div
-                        className='fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden'
+                        className='fixed inset-0 z-30 bg-black/40 backdrop-blur-sm lg:hidden'
                         onClick={() => setIsSidebarOpen(false)}
                      />
                   )}

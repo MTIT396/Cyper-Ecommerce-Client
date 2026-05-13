@@ -1,4 +1,4 @@
-import { Heart, LayoutDashboard, MapPinned, Receipt } from 'lucide-react'
+import { Heart, History, LayoutDashboard, MapPinned } from 'lucide-react'
 import { CgScreen } from 'react-icons/cg'
 import { IoPhonePortraitOutline } from 'react-icons/io5'
 import { PiTelevisionSimpleLight } from 'react-icons/pi'
@@ -90,7 +90,7 @@ export const SIDEBAR_ITEMS = [
       href: '/user/profile'
    },
    {
-      icon: Receipt,
+      icon: History,
       label: 'Lịch sử mua hàng',
       href: '/user/profile/order'
    },
