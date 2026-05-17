@@ -24,12 +24,23 @@ const SidebarSheet = ({ children, open, onOpenChange }: SidebarSheetProps) => {
          <SheetContent
             side='left'
             onOpenAutoFocus={(e) => e.preventDefault()}
-            className='flex w-[85%] flex-col border-r-0 bg-white p-0 sm:max-w-sm'
+            className='flex w-full flex-col border-r-0 bg-white p-0 sm:max-w-sm'
          >
             {/* Header */}
             <SheetHeader className='border-b border-zinc-100 bg-gradient-to-r from-zinc-100 via-white to-white px-6 py-5 text-left'>
-               <Link href='/' className='shrink-0' onClick={() => onOpenChange(false)}>
-                  <Image src='/Logo.png' alt='logo' width={96} height={32} />
+               <Link
+                  href='/'
+                  className='inline-flex items-center'
+                  onClick={() => onOpenChange(false)}
+               >
+                  <Image
+                     src='/cyper.png'
+                     alt='Cyper logo'
+                     width={160}
+                     height={60}
+                     priority
+                     className='h-12 w-auto scale-150 md:h-14'
+                  />
                </Link>
             </SheetHeader>
 

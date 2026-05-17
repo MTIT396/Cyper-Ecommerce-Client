@@ -12,7 +12,7 @@ const SwiperCategoryBar = () => {
       <Swiper
          breakpoints={{
             320: {
-               slidesPerView: 2.5,
+               slidesPerView: 3,
                spaceBetween: 16,
                slidesPerGroup: 2
             },
@@ -35,7 +35,6 @@ const SwiperCategoryBar = () => {
          modules={[Navigation, Pagination, Scrollbar, A11y]}
          speed={600}
          grabCursor
-         className='divided-x divide-white'
       >
          {CategoriesList.map((cat) => (
             <SwiperSlide key={cat.id}>

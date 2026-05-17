@@ -140,19 +140,20 @@ export default function ProfileLayout({ children }: Props) {
                                     </div>
                                  </div>
                               </div>
-
                               {/* STATS */}
-                              <div className='flex flex-wrap items-center gap-4 sm:flex-row'>
+                              <div className='grid grid-cols-2 gap-4 lg:flex lg:flex-row lg:items-center'>
                                  <StatCard
                                     title='Đơn hàng'
                                     icon={Package}
                                     stat={orders?.data?.length || 0}
                                  />
+
                                  <StatCard
                                     title='Yêu thích'
                                     icon={Heart}
                                     stat={wishlist.length || 0}
                                  />
+
                                  <StatCard
                                     title='Tổng chi tiêu'
                                     icon={Receipt}
@@ -202,83 +203,87 @@ export default function ProfileLayout({ children }: Props) {
                         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                      }`}
                   >
-                     {/* mobile header */}
-                     <div className='mb-6 flex items-center justify-between lg:hidden'>
-                        <h2 className='text-xl font-bold text-zinc-900'>Menu</h2>
+                     <div className='flex h-full flex-col'>
+                        {/* mobile header */}
+                        <div className='mb-6 flex items-center justify-between lg:hidden'>
+                           <h2 className='text-xl font-bold text-zinc-900'>Menu</h2>
 
-                        <Button
-                           variant='outline'
-                           onClick={() => setIsSidebarOpen(false)}
-                           className='size-10 rounded-full bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
-                        >
-                           <X className='size-4' />
-                        </Button>
-                     </div>
-
-                     {/* user mini */}
-                     <div className='mb-6 flex items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4'>
-                        <div className='relative size-14 overflow-hidden rounded-full'>
-                           <Image
-                              src={user.avatar || '/images/default-avt.jpg'}
-                              alt={user.username}
-                              fill
-                              className='object-cover'
-                           />
+                           <Button
+                              variant='outline'
+                              onClick={() => setIsSidebarOpen(false)}
+                              className='size-10 rounded-full border-none text-zinc-700 shadow-none'
+                           >
+                              <X className='size-4' />
+                           </Button>
                         </div>
 
-                        <div className='min-w-0 flex-1'>
-                           <h3 className='truncate font-semibold text-zinc-900'>{user.username}</h3>
+                        {/* user mini */}
+                        <div className='mb-6 flex items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4'>
+                           <div className='relative size-14 overflow-hidden rounded-full'>
+                              <Image
+                                 src={user.avatar || '/images/default-avt.jpg'}
+                                 alt={user.username}
+                                 fill
+                                 className='object-cover'
+                              />
+                           </div>
 
-                           <p className='truncate text-sm text-zinc-500'>{user.email}</p>
+                           <div className='min-w-0 flex-1'>
+                              <h3 className='truncate font-semibold text-zinc-900'>
+                                 {user.username}
+                              </h3>
+
+                              <p className='truncate text-sm text-zinc-500'>{user.email}</p>
+                           </div>
                         </div>
-                     </div>
 
-                     {/* nav */}
-                     <div className='space-y-2.5'>
-                        {SIDEBAR_ITEMS.map((item, index) => {
-                           const Icon = item.icon
+                        {/* nav */}
+                        <div className='space-y-2.5'>
+                           {SIDEBAR_ITEMS.map((item, index) => {
+                              const Icon = item.icon
 
-                           const isActive = pathname === item.href
+                              const isActive = pathname === item.href
 
-                           return (
-                              <Link
-                                 key={index}
-                                 href={item.href}
-                                 onClick={() => setIsSidebarOpen(false)}
-                                 className={`group flex items-center gap-3 rounded-2xl px-4 py-3 transition-all duration-200 ${
-                                    isActive
-                                       ? 'bg-zinc-900 text-white shadow-lg'
-                                       : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
-                                 }`}
-                              >
-                                 <Icon className='size-5 shrink-0' />
-
-                                 <span className='flex-1 font-medium'>{item.label}</span>
-
-                                 <ChevronRight
-                                    className={`size-4 transition-transform duration-200 ${
-                                       isActive ? 'translate-x-1' : 'group-hover:translate-x-1'
+                              return (
+                                 <Link
+                                    key={index}
+                                    href={item.href}
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className={`group flex items-center gap-3 rounded-2xl px-4 py-3 transition-all duration-200 ${
+                                       isActive
+                                          ? 'bg-zinc-900 text-white shadow-lg'
+                                          : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
                                     }`}
-                                 />
-                              </Link>
-                           )
-                        })}
-                     </div>
+                                 >
+                                    <Icon className='size-5 shrink-0' />
 
-                     {/* logout */}
-                     <div className='mt-6 border-t border-zinc-100 pt-6'>
-                        <Button
-                           variant='outline'
-                           size='lg'
-                           onClick={() => {
-                              logout()
-                              setIsSidebarOpen(false)
-                           }}
-                           className='h-12 w-full justify-start rounded-2xl border-red-200 bg-red-50 text-red-600 hover:border-red-100 hover:bg-red-50'
-                        >
-                           <LogOut className='size-5' />
-                           Đăng xuất
-                        </Button>
+                                    <span className='flex-1 font-medium'>{item.label}</span>
+
+                                    <ChevronRight
+                                       className={`size-4 transition-transform duration-200 ${
+                                          isActive ? 'translate-x-1' : 'group-hover:translate-x-1'
+                                       }`}
+                                    />
+                                 </Link>
+                              )
+                           })}
+                        </div>
+
+                        {/* logout */}
+                        <div className='mt-auto border-t border-zinc-100 pt-6'>
+                           <Button
+                              variant='outline'
+                              size='lg'
+                              onClick={() => {
+                                 logout()
+                                 setIsSidebarOpen(false)
+                              }}
+                              className='h-12 w-full justify-start rounded-2xl border-red-200 bg-red-50 text-red-600 hover:border-red-100 hover:bg-red-50'
+                           >
+                              <LogOut className='size-5' />
+                              Đăng xuất
+                           </Button>
+                        </div>
                      </div>
                   </aside>
 

@@ -96,7 +96,7 @@ const SearchbarPopover = ({ className }: SearchbarPopoverProps) => {
 
          <PopoverContent
             ref={popoverRef}
-            className='w-[300px] p-0 duration-300 sm:w-[433px]'
+            className='w-[var(--radix-popover-trigger-width)] p-0 duration-300'
             align='start'
             sideOffset={6}
             onOpenAutoFocus={(e) => e.preventDefault()}

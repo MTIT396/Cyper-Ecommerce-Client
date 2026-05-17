@@ -31,7 +31,7 @@ const Header = () => {
    return (
       <header className='fixed inset-0 z-50 h-18 bg-white shadow-xl'>
          <Container className='flex h-full cursor-pointer items-center justify-between'>
-            <div className='flex items-center gap-4'>
+            <div className='flex items-center'>
                <SidebarSheet open={openSidebar} onOpenChange={setOpenSidebar}>
                   <Button
                      variant='icon'
@@ -47,7 +47,7 @@ const Header = () => {
                      width={160}
                      height={60}
                      priority
-                     className='h-12 w-auto scale-150 md:h-14'
+                     className='h-12 w-auto scale-150 object-contain md:h-14'
                   />
                </Link>
             </div>
