@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export const metadata: Metadata = {
@@ -18,15 +19,16 @@ export default function AuthLayout({
             <div className='relative grid h-full lg:grid-cols-2'>
                {/* LEFT SIDE */}
                <div className='hidden h-full flex-col justify-between bg-black p-8 text-white lg:flex xl:p-12'>
-                  <div>
+                  <Link href='/' className='inline-flex items-center'>
                      <Image
-                        width={100}
-                        height={100}
-                        src='/Logo.png'
-                        alt='Logo'
-                        className='object-contain brightness-0 invert'
+                        src='/cyper2.png'
+                        alt='Cyper logo'
+                        width={160}
+                        height={60}
+                        priority
+                        className='h-12 w-auto scale-150 md:h-14'
                      />
-                  </div>
+                  </Link>
 
                   <div className='space-y-6'>
                      <div className='space-y-4'>

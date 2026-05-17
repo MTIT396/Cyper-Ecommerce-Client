@@ -42,7 +42,7 @@ export default function TabProducts() {
       <Container className='py-16'>
          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as TabValue)}>
             {/* Tabs */}
-            <TabsList ref={ref} className='relative mb-8 flex gap-6 border-none bg-transparent p-0'>
+            <TabsList ref={ref} className='relative mb-2 flex gap-6 border-none bg-transparent p-0'>
                {tabs.map((tab) => (
                   <TabsTrigger
                      key={tab.value}

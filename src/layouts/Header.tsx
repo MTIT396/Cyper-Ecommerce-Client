@@ -40,8 +40,15 @@ const Header = () => {
                      <TextAlignJustify className='size-6' />
                   </Button>
                </SidebarSheet>
-               <Link href='/' className='shrink-0'>
-                  <Image src='/Logo.png' alt='logo' width={96} height={32} />
+               <Link href='/' className='inline-flex items-center'>
+                  <Image
+                     src='/cyper.png'
+                     alt='Cyper logo'
+                     width={160}
+                     height={60}
+                     priority
+                     className='h-12 w-auto scale-150 md:h-14'
+                  />
                </Link>
             </div>
 

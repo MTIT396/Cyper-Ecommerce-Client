@@ -87,13 +87,14 @@ const Footer: FC<FooterProps> = ({
             <div className='mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12'>
                {/* Company info */}
                <div className='lg:col-span-1'>
-                  <Link href='/' className='group mb-4 inline-flex items-center gap-2'>
+                  <Link href='/' className='inline-flex items-center'>
                      <Image
-                        className='shrink-0 cursor-pointer'
-                        src='/Logo2.png'
-                        alt='logo'
-                        width={96}
-                        height={32}
+                        src='/cyper2.png'
+                        alt='Cyper logo'
+                        width={160}
+                        height={60}
+                        priority
+                        className='h-12 w-auto scale-150 md:h-14'
                      />
                   </Link>
                   <p className='text-extra-gray max-w-xs text-sm leading-relaxed'>

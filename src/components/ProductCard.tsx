@@ -58,16 +58,16 @@ const ProductCard = ({ product }: { product: Product }) => {
          <Button
             variant='icon'
             onClick={() => handleToggleWishlist(product.id)}
-            className='absolute top-2 right-2 z-10 size-10 rounded-full bg-white p-2 shadow-sm'
+            className='absolute top-2 right-2 z-10 size-8 rounded-full bg-white p-2 shadow-sm sm:size-10'
          >
             {isToggling ? (
                <>
-                  <Loader2 className='size-5 animate-spin text-red-500' />
+                  <Loader2 className='size-4 animate-spin text-red-500 sm:size-5' />
                </>
             ) : isWishlisted ? (
-               <IoIosHeart className='h-5 w-5 text-red-500' />
+               <IoIosHeart className='size-4 text-red-500 sm:size-5' />
             ) : (
-               <IoHeartOutline className='h-5 w-5 text-gray-400' />
+               <IoHeartOutline className='size-4 text-gray-400 sm:size-5' />
             )}
          </Button>
 
@@ -92,7 +92,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             <Badge className='text-dark-gray bg-light-gray mb-2 text-xs'>Chính hãng 100%</Badge>
             {/* Product Name */}
             <Link title={product.name} href={`/product/${product.slug}`}>
-               <h3 className='text-primary mb-2 line-clamp-2 cursor-pointer overflow-hidden text-xs font-semibold sm:text-base'>
+               <h3 className='text-primary mb-2 line-clamp-2 cursor-pointer overflow-hidden text-sm font-semibold sm:text-base'>
                   {product.name}
                </h3>
             </Link>
@@ -124,7 +124,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
             {/* Decrease */}
             {salePercent > 0 && (
-               <span className='text-xs text-green-600'>
+               <span className='text-xs text-teal-600'>
                   Giảm {formatVNCurrency(product.base_price - product.sale_price)}
                </span>
             )}
@@ -148,7 +148,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                isLoading={addToCartPending}
                loadingText='Đang thêm vào giỏ...'
                onClick={handleAddToCart}
-               className='mt-4 rounded-full py-2 text-xs sm:text-sm'
+               className='mt-4 hidden rounded-full py-2 text-xs sm:text-sm lg:flex'
             >
                <Handbag size={20} />
                Thêm vào giỏ

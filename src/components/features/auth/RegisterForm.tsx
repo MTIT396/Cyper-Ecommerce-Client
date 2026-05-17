@@ -18,6 +18,7 @@ import { FadeMotionWrapper } from '@/components/shared/FadeMotionWrapper'
 import { FadeMotionItem } from '@/components/shared/FadeMotionItem'
 import { FadeUpVariants } from '@/lib/variants'
 import { Label } from '@/components/ui/label'
+import Link from 'next/link'
 
 const registerSchema = z.object({
    email: z.string().email('Email không hợp lệ'),
@@ -50,13 +51,16 @@ export default function RegisterForm() {
             {/* HEADING */}
             <FadeMotionItem variants={FadeUpVariants} className='mb-6 text-center'>
                <div className='mb-4 flex justify-center lg:hidden'>
-                  <Image
-                     width={80}
-                     height={80}
-                     src='/Logo.png'
-                     alt='Logo'
-                     className='object-contain'
-                  />
+                  <Link href='/' className='inline-flex items-center'>
+                     <Image
+                        src='/cyper.png'
+                        alt='Cyper logo'
+                        width={160}
+                        height={60}
+                        priority
+                        className='h-12 w-auto scale-200 md:h-14'
+                     />
+                  </Link>
                </div>
 
                <h2 className='text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl'>

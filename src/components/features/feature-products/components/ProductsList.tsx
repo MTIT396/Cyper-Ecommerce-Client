@@ -30,7 +30,7 @@ export default function ProductList({ type }: Props) {
             </div>
          ) : products.length ? (
             <>
-               <ul className='grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 md:grid-cols-4'>
+               <ul className='grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-4 md:grid-cols-4'>
                   {products.map((product) => (
                      <ProductCard key={product.id} product={product} />
                   ))}
@@ -39,18 +39,14 @@ export default function ProductList({ type }: Props) {
                   <div className='mt-6 flex justify-center'>
                      <Button
                         variant='icon'
+                        loadingText='Đang tải...'
+                        isLoading={isFetchingNextPage}
                         onClick={() => fetchNextPage()}
                         disabled={isFetchingNextPage}
-                        className='bg-bg-gray/80 hover:bg-bg-gray rounded-full border px-4 py-2 text-[15px]'
+                        className='bg-bg-gray/80 hover:bg-bg-gray min-w-[14rem] rounded-full border px-4 py-2 text-sm sm:text-base'
                      >
-                        {isFetchingNextPage ? (
-                           'Đang tải...'
-                        ) : (
-                           <>
-                              Xem thêm {Math.max(remaining, 0)} sản phẩm
-                              <ChevronDown size={18} />
-                           </>
-                        )}
+                        Xem thêm {Math.max(remaining, 0)} sản phẩm
+                        <ChevronDown size={18} />
                      </Button>
                   </div>
                )}
