@@ -328,9 +328,9 @@ const ProductDetails = ({ slug }: { slug: string }) => {
                                     className='bg-bg-gray flex w-full flex-col rounded-lg px-4.5 py-2.5'
                                  >
                                     <p className='text-extra-gray text-sm leading-7'>{s.name}</p>
-                                    <div className='flex items-center gap-1.5'>
+                                    <div className='flex items-center gap-2.5'>
                                        <SpecificsIcon src={s.name} />
-                                       <p className='font-semibold'>{s.value}</p>
+                                       <p className='leading-tight font-semibold'>{s.value}</p>
                                     </div>
                                  </div>
                               ))}

@@ -234,7 +234,7 @@ export default function ProfileLayout({ children }: Props) {
                      </div>
 
                      {/* nav */}
-                     <div className='space-y-2'>
+                     <div className='space-y-2.5'>
                         {SIDEBAR_ITEMS.map((item, index) => {
                            const Icon = item.icon
 
@@ -274,7 +274,7 @@ export default function ProfileLayout({ children }: Props) {
                               logout()
                               setIsSidebarOpen(false)
                            }}
-                           className='h-12 w-full justify-start rounded-2xl border-red-200 bg-red-50 text-red-600 hover:border-red-100 hover:bg-red-100'
+                           className='h-12 w-full justify-start rounded-2xl border-red-200 bg-red-50 text-red-600 hover:border-red-100 hover:bg-red-50'
                         >
                            <LogOut className='size-5' />
                            Đăng xuất

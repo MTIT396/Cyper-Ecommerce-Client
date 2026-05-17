@@ -164,3 +164,7 @@ html body[data-scroll-locked] {
 .scrollbar::-webkit-scrollbar-thumb:hover {
    background: #cfcfcf;
 }
+
+.scrollbar::-webkit-scrollbar {
+   height: 4px;
+}

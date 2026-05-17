@@ -260,7 +260,7 @@ const OrderDetailPage = ({ order_id }: { order_id: number }) => {
                   </div>
 
                   {/* INFO */}
-                  <div className='space-y-6'>
+                  <div className='flex flex-col space-y-6'>
                      <InfoCard title='Thông tin nhận hàng' className='space-y-4'>
                         <InfoItem
                            icon={User}
@@ -289,7 +289,7 @@ const OrderDetailPage = ({ order_id }: { order_id: number }) => {
                         )}
                      </InfoCard>
 
-                     <InfoCard title='Chi phí đơn hàng'>
+                     <InfoCard title='Chi phí đơn hàng' className='space-y-4'>
                         <InfoRow label='Phương thức thanh toán' content={order?.payment_method} />
                         <InfoRow
                            label='Phí vận chuyển'

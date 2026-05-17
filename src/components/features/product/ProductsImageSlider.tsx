@@ -40,19 +40,9 @@ export default function ProductsImageSlider({
    }, [activeSlide])
 
    return (
-      <div className='grid grid-cols-[80px_1fr] gap-3'>
-         {/* Sub Slider -  thumbnail column  */}
-         <ProductsSubSlider
-            productImages={productImages}
-            activeSlide={activeSlide}
-            onNavigate={(i: number) => {
-               swiperRef.current?.slideTo(i)
-               setActiveSlide(i)
-            }}
-         />
-
+      <div className='flex flex-col gap-3'>
          {/* Swiper main */}
-         <div className='min-w-0 p-6'>
+         <div className='p-6'>
             <Swiper
                modules={[Navigation, Pagination]}
                spaceBetween={0}
@@ -88,11 +78,20 @@ export default function ProductsImageSlider({
             </Swiper>
          </div>
 
+         {/* Sub Slider -  thumbnail column  */}
+         <ProductsSubSlider
+            productImages={productImages}
+            activeSlide={activeSlide}
+            onNavigate={(i: number) => {
+               swiperRef.current?.slideTo(i)
+               setActiveSlide(i)
+            }}
+         />
+
          {/* Modal Preview */}
          <ModalViewProduct
             isOpen={isOpen}
             productImages={productImages}
-            activeIndex={modalActiveIndex}
             activeSlide={activeSlide}
             modalActiveIndex={modalActiveIndex}
             onOpen={setIsOpen}
