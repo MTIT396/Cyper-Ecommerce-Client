@@ -76,15 +76,19 @@ const ReminderBox = ({
                   </Button>
                </DialogClose>
 
-               <Button
-                  onClick={onConfirm}
-                  disabled={loading}
-                  className={`h-10 rounded-xl px-5 text-sm font-medium shadow-none ${
-                     danger ? 'border-red-600 bg-red-600 hover:border-red-700 hover:bg-red-700' : ''
-                  }`}
-               >
-                  {confirmText}
-               </Button>
+               <DialogClose asChild>
+                  <Button
+                     onClick={onConfirm}
+                     disabled={loading}
+                     className={`h-10 rounded-xl px-5 text-sm font-medium shadow-none ${
+                        danger
+                           ? 'border-red-600 bg-red-600 hover:border-red-700 hover:bg-red-700'
+                           : ''
+                     }`}
+                  >
+                     {confirmText}
+                  </Button>
+               </DialogClose>
             </DialogFooter>
          </DialogContent>
       </Dialog>
