@@ -81,6 +81,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                   src={product.image_url}
                   alt={product.name}
                   fill
+                  unoptimized
                   className='object-contain transition duration-500 group-hover:scale-105'
                   sizes='(max-width: 640px) 50vw, 25vw'
                />

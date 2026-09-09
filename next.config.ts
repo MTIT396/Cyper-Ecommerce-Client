@@ -77,7 +77,7 @@ const nextConfig: NextConfig = {
 
       // ịnh dạng hỗ trợ
       formats: ['image/webp', 'image/avif'],
-      unoptimized: true
+   
    }
 }
 
